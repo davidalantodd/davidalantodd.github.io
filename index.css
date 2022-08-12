@@ -1,0 +1,335 @@
+*{
+    --background-sand: rgb(246,243,236);
+    --light-blue:rgb(56, 212, 202);
+}
+/* ------------ HEADER ------------ */
+header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header{
+   padding: 1rem;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+
+h1.header{
+    font-size: 4rem;
+    margin: 0;
+    font-weight:bold;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+    /*fill text with picture */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color:transparent;
+
+    background-image:url(pictures/seven-mile-beach.png);
+    background-size:cover;
+    background-position-y: 105%;
+
+}
+
+
+a {
+    font-weight:bold;
+    text-decoration:none;
+    color:var(--light-blue)
+}
+
+
+
+a:hover{
+    color: var(--background-sand);
+}
+
+/* ------------ MAIN ------------ */
+
+/* ------------ ABOUT BAR ------------ */
+
+
+.about {
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color:var(--background-sand);
+    min-height: auto;
+    
+}
+
+.about img{
+    height: 250px;
+    border-radius: 10rem;
+    
+}
+
+.aboutText {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    
+    color:rgb(103, 103, 103);
+    padding-left: 20px;
+    
+    /*max-inline-size:40vw;*/
+
+}
+
+.aboutBio{
+    width: 450px;
+}
+
+
+
+
+/* ------------ BIO/EXP/PORT. ------------ */
+
+.words{
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    padding:2rem;
+    
+}
+.card{
+    width:300px;
+    height: 300px;
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin:1rem;
+
+    border-radius: 2rem;
+
+    background-size: cover;
+    background-origin:border-box;
+    background-position: 40%;
+    background-position-y: 40%;
+}
+
+
+h1.bio, h1.experience, h1.portfolio {
+    font-size:3rem;
+    color:white;
+}
+
+h1.subpagecard {
+    font-size:9rem;
+}
+
+#bio {
+    background-image:url(pictures/music2.jpeg);
+    background-position-y:20%;
+    filter:grayscale(80%);
+}
+
+#experience {
+    background-image:url(pictures/computer\ science.jpeg);
+    background-position-y:50%;
+    filter:grayscale(80%);
+}
+
+#portfolio {
+    background-image:url(pictures/galaxy.jpeg);
+    background-position-y:50%;
+    filter:grayscale(80%);
+}
+
+.subpagecard {
+    width:100vw;
+    height: 300px;
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin:1rem;
+
+    border-radius: 2rem;
+
+    background-size: cover;
+    background-origin:border-box;
+    background-position: 40%;
+    background-position-y: 100%;
+    color:white;
+    /*-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+}
+
+#bio:hover, #experience:hover, #portfolio:hover{
+    /*-webkit-text-fill-color:rgba(255, 255, 255);
+    -webkit-background-clip:border-box;*/
+     /*setting transparent text against picture background */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    filter:grayscale(0%);
+    
+}
+
+.exp{
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:column;
+    justify-content: center;
+    align-items: flex-start;
+    padding:1rem;
+}
+
+.exp p {
+    padding-left:25px;
+}
+
+/* ------------ FOOTER ------------ */
+
+footer {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    background-color: var(--background-sand);
+}
+
+footer a {
+    margin:1rem;
+}
+footer img {
+    height:50px;
+    filter:grayscale(30%);
+}
+
+footer img:hover{
+    filter:saturate(200%);
+
+}
+
+
+/* ------------ RESPONSIVE DESIGN ------------ */
+
+@media screen and (max-width:900px){
+    header{
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        padding:.5rem;
+    }
+
+    h1.header {
+        font-size:3rem;
+    }
+
+    nav a {
+        font-size:1rem;
+    }
+
+    main .about {
+        padding: 2rem;
+        text-align:center;
+    }
+    
+    .aboutText {
+        max-inline-size:100vw;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    h1.aboutText  {
+        font-size:2rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1.bio, h1.experience, h1.portfolio {
+        font-size: 4rem;
+        
+    }
+    h1.subpagecard {
+        font-size: 4rem;
+        
+    }
+    .words{
+        padding:2rem;
+    }
+    .card {
+        width:100vw;
+        height:300px;
+    }
+
+    .subpagecard {
+        width:100vw;
+        height:200px;
+        padding:0rem;
+    }
+}
+
+/* ------------ RESPONSIVE DESIGN MOBILE ------------ */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+    header{
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        padding:.5rem;
+    }
+
+    h1.header {
+        font-size:3rem;
+    }
+
+    nav a {
+        font-size:1rem;
+    }
+
+    main .about {
+        padding: 2rem;
+        text-align:center;
+    }
+    
+    .aboutText {
+        max-inline-size:100vw;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    h1.aboutText  {
+        font-size:2rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1.bio, h1.experience, h1.portfolio {
+        font-size: 4rem;
+        
+    }
+    h1.subpagecard {
+        font-size: 4rem;
+        
+    }
+    .words{
+        padding:2rem;
+    }
+    .card {
+        width:100vw;
+        height:300px;
+    }
+
+    .subpagecard {
+        width:100vw;
+        height:200px;
+        padding:0rem;
+    }
+}
