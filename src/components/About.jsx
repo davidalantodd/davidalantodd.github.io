@@ -13,7 +13,7 @@ function About() {
                 <p>I have always had an interest in the intersection of people and technology and am grateful to be able to combine my computer science skills with my experiences in education.</p>
             </article>
         </section>
-        <section className="about-section">
+        <section className="about-section reversed-section">
             <article className="section-text">
                 <p>A software engineer with knowledge in computer science theory and experience building full-stack applications.</p>   
                 <p>Experienced in JavaScript/Node.js, React.js, Express.js, Jest, Sequelize, MySQL, Postman, Docker, Bootstrap, HTML/CSS , Git/GitHub, PostgreSQL, Java/Spring, C#/.NET, C, Ruby, Python, OCaml, Go, and Matlab</p>
@@ -33,7 +33,7 @@ function About() {
                 <p>Interested in DEI, inclusive education, teaching pedagogy, applied learning, flipped classrooms, radical candor, growth mindset, counseling, and group dynamics.</p>
             </article>
         </section>
-        <section className="about-section">
+        <section className="about-section reversed-section">
             <article className="section-text">
                 <p>Outside of work, I enjoy spending time with my partner, our 2-year-old, and our dog. As a family, we enjoy birding, gardening, going to the beach, and traveling.</p>
                 <p>I also like going to the gym, singing, listening to music (I love musical theatre!), reading (a favorite: <a href="https://www.goodreads.com/en/book/show/34728667">Children of Blood and Bone</a>), playing a game on Nintendo Switch, or watching some good TV (current favorites: Abbott Elementary, Survivor, and Bob&apos;s Burgers).</p> 
