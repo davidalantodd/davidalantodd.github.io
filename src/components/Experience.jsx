@@ -84,6 +84,134 @@ function Experience() {
         }
     ]
 
+    const tech = [
+        {
+            link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg",
+            altText: "javascript"
+        },
+        {
+            link: "https://nodejs.org",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg",
+            altText: "nodejs"
+        },
+        {
+            link: "https://expressjs.com",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg",
+            altText: "express"
+        },
+        {
+            link: "https://reactjs.org/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg",
+            altText: "react"
+        },
+        {
+            link: "https://angular.io",
+            imageURL:"https://angular.io/assets/images/logos/angular/angular.svg",
+            altText: "angular"
+        },
+        {
+            link: "https://www.java.com",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg",
+            altText: "java"
+        },
+        {
+            link: "https://spring.io/",
+            imageURL:"https://www.vectorlogo.zone/logos/springio/springio-icon.svg",
+            altText: "spring"
+        },
+        {
+            link: "https://www.w3schools.com/cs/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg",
+            altText: "csharp"
+        },
+        {
+            link: "https://dotnet.microsoft.com/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg",
+            altText: "dotnet"
+        },
+        {
+            link: "https://www.cprogramming.com/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg",
+            altText: "c"
+        },
+        {
+            link: "https://www.ruby-lang.org/en/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/ruby/ruby-original.svg",
+            altText: "ruby"
+        },
+        {
+            link: "https://www.python.org",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg",
+            altText: "python"
+        },
+        {
+            link: "https://golang.org",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg",
+            altText: "go"
+        },
+        {
+            link: "https://ocaml.org/",
+            imageURL:"https://avatars.githubusercontent.com/u/1841483?s=280&v=4",
+            altText: "ocaml"
+        },
+        {
+            link: "https://www.docker.com/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg",
+            altText: "docker"
+        },
+        {
+            link: "https://www.mysql.com/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg",
+            altText: "mysql"
+        },
+        {
+            link: "https://www.postgresql.org",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg",
+            altText: "postgresql"
+        },
+        {
+            link: "https://jestjs.io",
+            imageURL:"https://www.vectorlogo.zone/logos/jestjsio/jestjsio-icon.svg",
+            altText: "jest"
+        },
+        {
+            link: "https://git-scm.com/",
+            imageURL:"https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg",
+            altText: "git"
+        },
+        {
+            link: "https://www.w3.org/html/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg",
+            altText: "html5"
+        },
+        {
+            link: "https://www.w3schools.com/css/",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg",
+            altText: "css3"
+        },
+        {
+            link: "https://getbootstrap.com",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg",
+            altText: "bootstrap"
+        },
+        {
+            link: "https://postman.com",
+            imageURL:"https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg",
+            altText: "postman"
+        },
+        {
+            link: "https://aws.amazon.com",
+            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+            altText: "aws"
+        },
+        {
+            link: "https://www.mathworks.com/",
+            imageURL:"https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png",
+            altText: "matlab"
+        },
+    ]
+
     return (
     <>
        <h1 className="title">experience</h1>
@@ -109,31 +237,9 @@ function Experience() {
        })}
         <h1 className="tech-stack-title">tech stack</h1>
        <section className="tech-stack">
-            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript"/></a>
-            <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs"/></a>
-            <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express"/></a>
-            <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react"/></a>
-            <a href="https://angular.io" target="_blank" rel="noreferrer"> <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular"/></a>
-            <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java"/></a>
-            <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring"/></a> 
-            <a href="https://www.w3schools.com/cs/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp"/></a>
-            <a href="https://dotnet.microsoft.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg" alt="dotnet"/></a> 
-            <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c"/></a>
-            <a href="https://www.ruby-lang.org/en/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ruby/ruby-original.svg" alt="ruby"/></a>
-            <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python"/></a>
-            <a href="https://golang.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" alt="go"/></a> 
-            <a href="https://ocaml.org/" target="_blank" rel="noreferrer"> <img src="https://avatars.githubusercontent.com/u/1841483?s=280&v=4" alt="ocaml"/></a>
-            <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker"/></a>
-            <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql"/></a>
-            <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql"/></a>
-            <a href="https://jestjs.io" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/jestjsio/jestjsio-icon.svg" alt="jest"/></a>
-            <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git"/></a>
-            <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5"/></a>
-            <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3"/></a>
-            <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap"/></a> 
-            <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman"/></a>
-            <a href="https://aws.amazon.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws"/></a>
-            <a href="https://www.mathworks.com/" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" alt="matlab"/></a>
+            {tech.map(t => {
+                return <a key={t.id} href={t.link} target="_blank" rel="noreferrer"> <img src={t.imageURL} alt={t.altText}/></a>
+            })}
         </section>
         <section className="linked-in-section">
             <p> Find out more about my experience on LinkedIn: <a href="https://www.linkedin.com/in/david-alan-todd" target="_blank" rel="noreferrer opener"><img src={linkedin} alt="linkedin logo"/></a></p>
