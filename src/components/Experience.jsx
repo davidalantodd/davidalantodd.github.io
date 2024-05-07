@@ -121,7 +121,7 @@ function Experience() {
             altText: "spring"
         },
         {
-            link: "https://www.w3schools.com/cs/",
+            link: "https://learn.microsoft.com/en-us/dotnet/csharp/",
             imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg",
             altText: "csharp"
         },
@@ -186,7 +186,7 @@ function Experience() {
             altText: "html5"
         },
         {
-            link: "https://www.w3schools.com/css/",
+            link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
             imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg",
             altText: "css3"
         },
