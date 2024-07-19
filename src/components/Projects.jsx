@@ -1,6 +1,7 @@
 import musicalApp from '../assets/musical-app.png'
 import github from '../assets/github.png'
 import adventOfCode from '../assets/adventofcode.png'
+import chickadee from '../assets/chickadee.png'
 
 function Projects() {
 
@@ -13,12 +14,19 @@ function Projects() {
             githubURL: "https://github.com/davidalantodd/musical-app",
         },
         {
+            name:"Chickadee",
+            screenshot: chickadee,
+            altText: "chickadee app screenshot",
+            description: "A front-end app to view recent bird sightings in your area using JavaScript, React, Bootstrap, and eBird API data.",
+            githubURL: "https://github.com/davidalantodd/chickadee",
+        },
+        {
             name:"Advent of Code",
             screenshot: adventOfCode,
             altText: "advent of code screenshot",
             description: "Solutions to Advent of Code challenge problems, using Ruby, Python, JavaScript, C, and Go",
             githubURL: "https://github.com/davidalantodd/advent-of-code",
-        },
+        }
     ]
     return (
     <>
