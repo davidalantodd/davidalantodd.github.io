@@ -342,7 +342,19 @@ footer img:hover{
   margin: 1rem;
 }
 
+.project .links {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .project .sourceCode {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin: 1rem;
+}
+
+.project .deployedURL {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
