@@ -4,6 +4,7 @@ import wellesley from '../assets/wellesley.jpeg'
 import uga from '../assets/uga.jpeg'
 import umd from '../assets/umd.jpeg'
 import linkedin from '../assets/linkedin.png'
+import njpc from '../assets/NJPC.png'
 
 function Experience() {
 
@@ -14,15 +15,28 @@ function Experience() {
             companyLink: "https://www.multiverse.io",
             yearsWorked: "2022 - present",
             responsibilities: [
-                "Deliver technical software engineering workshops to a cohort of apprentices covering tools and skills, such as JavaScript, Node.js, Express.js, Object-Oriented Programming, RESTful APIs, Databases, SQL, Test-Driven Development, Jest, Authentication, Auth0, React.js, User Interfaces, CSS Frameworks, State Management, Docker, CI/CD, Cloud, Security, HTML/CSS, Git, Github Actions, and Web Accessibility.",
-                "Empower apprentices to complete curriculum projects demonstrating computer science skills through an applied learning model over the course of a 15-month apprenticeship, beginning with a 3-month software engineering bootcamp.",
-                "Coach apprentices one-to-one throughout their first year on the job with partner companies with the goals of improving technical and durable skills and delivering business impact.",
-                "Collaborate with apprentice managers to align on apprenticeship objectives, track apprentice progress, and identify opportunities for growth and professional development.",
-                "Monitor and act on learner progress data to ensure a high level of coaching and instructional excellence and further improve the apprenticeship curriculum.",
-                "Engage in professional development and continuous technical upskilling opportunities within the Delivery team to improve and maintain teaching pedagogy skills and technical credibility."
+                "Teach 165+ technical workshops over two years to software engineering apprentices to increase their knowledge of front-end, back-end, and deployment technologies, including Node.js, Express, React, OOP, RESTful APIs, Databases, Data Security, TDD, UI Development, Docker, CI/CD, and Cloud.",
+                "Build RESTful API endpoints secured with data encryption, basic auth, JWTs, and OAuth using C#/.NET to serve as alternative learning materials for back-end development. Expand apprenticeship curriculum tech stack coverage by 20% to enable additional apprentices to utilize curriculum materials.",
+                "Design and deliver a series of data structures and algorithms coding challenges (JavaScript/Node) to strengthen fundamental programming concepts in junior software engineers. Boost overall Multiverse product credibility by enhancing personal coach expertise score from 5.4 to 5.8/6.",
+                "Mentor 77 software engineering apprentices across 11 partner companies (e.g. Cisco, AMEX, Verizon, HP) and 5 cohorts over two years. Elevated end-user experience, increasing apprentice NPS from 23 to 95/100 by providing personalized guidance through 107+ code reviews (in 7 programming languages).",
+                "Facilitate 76+ progress reviews and 166+ one-to-one coaching meetings over two years, aligning with apprentices and managers on objectives to create business impact. Drive significant improvement in client satisfaction, increasing manager ROI score from 4.8 to 5.4/6 and manager NPS from 7 to 69/100.",
+                "Reduce time of project feedback and progress review workflows by 50% by collaborating with other teammates to develop internal automation tools using Coda.",
+                "Improve technical credibility and teaching pedagogy skills by engaging in continuous technical upskilling opportunities, such as participating in Advent of Code and self-study projects."
             ],
             logo: multiverse,
             altText: "multiverse logo"
+        },
+        {
+            title: "Volunteer Software Engineer",
+            company: "New Jersey Parents' Caucus",
+            companyLink: "https://newjerseyparentscaucus.org/",
+            yearsWorked: "2024 - present",
+            responsibilities: [
+                "Contribute to software development efforts on the volunteer technical team using TypeScript, JavaScript, React, Node.js, and MongoDB.",
+                "Build and maintain a centralized hub of resources related to the services provided by the New Jersey Parents' Caucus, including mental health evaluation, family intake, and referral database management."
+            ],
+            logo: njpc,
+            altText: "NJPC logo"
         },
         {title: "Associate Director of Student Transitions",
             company: "Emerson College",
