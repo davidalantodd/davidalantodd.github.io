@@ -18,7 +18,7 @@ function Projects() {
             name:"Chickadee",
             screenshot: chickadee,
             altText: "chickadee app screenshot",
-            description: "A front-end app to view recent bird sightings in your area using JavaScript, React, Bootstrap, Netlify, and eBird API data.",
+            description: "A front-end app to view recent bird observations using Node.js, JavaScript, React, Bootstrap, Netlify, the eBird API, and the MediaWiki API.",
             githubURL: "https://github.com/davidalantodd/chickadee",
             deploymentURL: "https://chickadeeapp.netlify.app"
         },
