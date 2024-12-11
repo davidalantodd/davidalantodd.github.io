@@ -9,15 +9,15 @@ function About() {
             <img className="picture" src={headshot} alt="headshot of David Todd"/>
             <article className="section-text">
                 <h3>David Todd (he/him)</h3>
-                <p>Hello! My name is David (he/him) and I&apos;m a Software Engineering Coach at <a href='multiverse.io'>Multiverse</a>. I was born and raised in Maryland and I currently live in Washington, D.C.</p>
-                <p>I have always had an interest in the intersection of people and technology and am grateful to be able to combine my computer science skills with my experiences in education.</p>
+                <p>Hello! My name is David (he/him) and I&apos;m a software engineer and former college administrator. Currently a Software Engineering Coach at <a href='multiverse.io'>Multiverse</a>. I was born and raised in Maryland and I currently live in Washington, D.C.</p>
+                <p>I have always had an interest in the intersection of people and technology and am grateful to be able to combine my software engineering skills with my experiences in education.</p>
             </article>
         </section>
         <section className="about-section reversed-section">
             <article className="section-text">
-                <p>A software engineer with expertise in full-stack development, a strong foundation in computer science theory, and a passion for leveraging technology to solve problems.</p>   
-                <p>Experienced in JavaScript/Node.js, Java/Spring, C#/.NET, React.js, Express.js, Jest, Sequelize, MySQL, Postman, Docker, Bootstrap, HTML/CSS, Git/GitHub, PostgreSQL, MongoDB, C, TypeScript, Ruby, Python, OCaml, Go, and MATLAB.</p>
-                <p>Interested in human-computer interaction, data structures & algorithms, computer vision/image processing, computer and network security, cryptology, and artificial intelligence.</p>
+                <p>A software engineering bootcamp instructor and coach to junior developers, mentoring the next generation of engineers at enterprise-level organizations. I enjoy collaborating with other developers to create technical solutions to solve complex problems and drive measurable business impact. </p>   
+                <p>Experienced in JavaScript/Node, React, Java/Spring, Python, Express, Jest, MySQL, MongoDB, Docker, AWS, HTML/CSS.</p>
+                <p>Interested in human-computer interaction, data structures & algorithms, image processing, cybersecurity, and artificial intelligence.</p>
             </article>
             <article className="title-box" id="swe-box">
                 <p>software engineering</p>
@@ -28,7 +28,7 @@ function About() {
                 <p>education & coaching</p>
             </article>
             <article className="section-text">
-                <p>An educator and coach with an ability to collaborate effectively, communicate technical concepts, and mentor junior developers.</p>   
+                <p>A former educator with the ability to communicate technical concepts clearly and mentor junior developers.</p>   
                 <p>Experienced in one-to-one coaching, workshop facilitation, teaching, training, student development, program management, data analysis & assessment, and social justice/anti-oppression education.</p>
                 <p>Interested in DEI, inclusive education, teaching pedagogy, applied learning, flipped classrooms, radical candor, growth mindset, counseling, and group dynamics.</p>
             </article>

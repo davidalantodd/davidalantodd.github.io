@@ -7,14 +7,6 @@ function Projects() {
 
     const projects = [
         {
-            name:"Musical App",
-            screenshot: musicalApp,
-            altText: "musical app screenshot",
-            description: "A full-stack app to track musical theatre productions using: C#/.NET, Angular/TypeScript/SCSS, and PostgreSQL",
-            githubURL: "https://github.com/davidalantodd/musical-app",
-            deploymentURL: null
-        },
-        {
             name:"Chickadee",
             screenshot: chickadee,
             altText: "chickadee app screenshot",
@@ -23,10 +15,18 @@ function Projects() {
             deploymentURL: "https://chickadeeapp.netlify.app"
         },
         {
+            name:"Musical App",
+            screenshot: musicalApp,
+            altText: "musical app screenshot",
+            description: "A full-stack app to track musical theatre productions using: C#/.NET, Angular/TypeScript/SCSS, and PostgreSQL",
+            githubURL: "https://github.com/davidalantodd/musical-app",
+            deploymentURL: null
+        },
+        {
             name:"Advent of Code",
             screenshot: adventOfCode,
             altText: "advent of code screenshot",
-            description: "Solutions to Advent of Code challenge problems, using Ruby, Python, JavaScript, C, and Go",
+            description: "Solutions to Advent of Code challenge problems, using Ruby, Python, JavaScript, C, Go, and PHP",
             githubURL: "https://github.com/davidalantodd/advent-of-code",
             deploymentURL: null
         }
