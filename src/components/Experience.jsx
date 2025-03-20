@@ -10,7 +10,7 @@ function Experience() {
 
     const jobs = [
         {
-            title: "Software Engineering Coach",
+            title: "Software Engineering Instructor",
             company: "Multiverse",
             companyLink: "https://www.multiverse.io",
             yearsWorked: "2022 - present",
@@ -30,7 +30,7 @@ function Experience() {
             title: "Volunteer Software Engineer",
             company: "New Jersey Parents' Caucus",
             companyLink: "https://newjerseyparentscaucus.org/",
-            yearsWorked: "2024 - present",
+            yearsWorked: "2024",
             responsibilities: [
                 "Decrease database maintenance task time and improve user experience by implementing a bulk delete feature for admin users to remove resources with confirmation modal and snack bar components",
                 "Improve data quality by adding a 409 HTTP response in back-end auth microservice and alerting users in UI when an attempt is made to register an email that already exists in the database during signup",
