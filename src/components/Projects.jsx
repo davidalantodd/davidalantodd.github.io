@@ -1,7 +1,7 @@
 import musicalApp from '../assets/musical-app.png'
 import github from '../assets/github.png'
 import adventOfCode from '../assets/adventofcode.png'
-import chickadee from '../assets/chickadee.png'
+import chickadee from '../assets/chickadee-screenshot-landing-page.png'
 
 function Projects() {
 
