@@ -5,15 +5,28 @@ import uga from '../assets/uga.jpeg'
 import umd from '../assets/umd.jpeg'
 import linkedin from '../assets/linkedin.png'
 import njpc from '../assets/NJPC.png'
+import saic from '../assets/SAIC.png'
 
 function Experience() {
 
     const jobs = [
         {
+            title: "Full Stack Developer",
+            company: "SAIC",
+            companyLink: "https://www.saic.com/",
+            yearsWorked: "2025 - present",
+            responsibilities: [
+                "Design, develop, and implement features for an application built with C#/.NET, Vue.js, and PostgreSQL, following agile development practices.",
+                "Update software design documentation and provide support for solutions deployed to production.",
+            ],
+            logo: saic,
+            altText: "SAIC logo"
+        },
+        {
             title: "Software Engineering Instructor",
             company: "Multiverse",
             companyLink: "https://www.multiverse.io",
-            yearsWorked: "2022 - present",
+            yearsWorked: "2022 - 2025",
             responsibilities: [
                 "Teach 165+ technical workshops over two years to software engineering apprentices to increase their knowledge of front-end, back-end, and deployment technologies, including Node.js, Express, React, OOP, RESTful APIs, Databases, Data Security, TDD, UI Development, Docker, CI/CD, and Cloud.",
                 "Build RESTful API endpoints secured with data encryption, basic auth, JWTs, and OAuth using C#/.NET to serve as alternative learning materials for back-end development. Expand apprenticeship curriculum tech stack coverage by 20% to enable additional apprentices to utilize curriculum materials.",
