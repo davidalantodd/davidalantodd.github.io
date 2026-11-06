@@ -9,15 +9,15 @@ function About() {
             <img className="picture" src={headshot} alt="headshot of David Todd"/>
             <article className="section-text">
                 <h3>David Todd (he/him)</h3>
-                <p>Hello! My name is David and I&apos;m a software engineer and former college administrator. Currently a Full Stack Developer at <a href='https://www.saic.com/'>SAIC</a>. I was born and raised in Maryland and I currently live in Washington, D.C.</p>
+                <p>Hello! My name is David and I&apos;m a mission-driven software engineer who likes to build things that help people. Currently a full-stack software developer at <a href='https://www.saic.com/'>SAIC</a>. I was born and raised in Maryland and I currently live in Washington, D.C.</p>
                 <p>I have always had an interest in the intersection of people and technology and am grateful to be able to combine my software engineering skills with my experiences in education.</p>
             </article>
         </section>
         <section className="about-section reversed-section">
             <article className="section-text">
-                <p>I have experience as both a full stack developer and a software engineering bootcamp instructor and coach. I enjoy collaborating with other developers to create technical solutions to solve complex problems and drive measurable business impact.</p>   
-                <p>Experienced in JavaScript/TS/Node, React, Vue, C#/.NET, Java/Spring, Python, PostgreSQL, Docker, AWS, HTML/CSS.</p>
-                <p>I am interested in human-computer interaction, cybersecurity, and AI.</p>
+                <p>Since transitioning to software engineering in 2022, I&apos;ve built full-stack apps for clients, mentored junior engineers, and led the integration of AI tools. My goal is to combine my technical skills and experiences in education to build software that solves meaningful problems.</p>   
+                <p>I&apos;m mostly using Vue.js, C#/.NET, PostgreSQL, AWS, and Docker currently, but I also have experience with TypeScript, Node, React, Java/Spring, and Python.</p>
+                <p>I am interested in human-computer interaction, accessibility, and AI.</p>
             </article>
             <article className="title-box" id="swe-box">
                 <p>software engineering</p>
@@ -25,18 +25,18 @@ function About() {
         </section>
         <section className="about-section">
             <article className="title-box" id="edu-box">
-                <p>education & coaching</p>
+                <p>education</p>
             </article>
             <article className="section-text">
-                <p>A former educator with the ability to communicate technical concepts clearly and mentor junior developers.</p>   
+                <p>I spent the first 7 years of my career as a college administrator, and the skills I learned during that time (collaboration, leadership, and problem solving) have become my biggest strengths as a developer.</p>   
                 <p>Experienced in one-to-one coaching, workshop facilitation, teaching, training, student development, program management, data analysis & assessment, and social justice/anti-oppression education.</p>
                 <p>Interested in DEI, inclusive education, teaching pedagogy, applied learning, flipped classrooms, radical candor, growth mindset, counseling, and group dynamics.</p>
             </article>
         </section>
         <section className="about-section reversed-section">
             <article className="section-text">
-                <p>Outside of work, I enjoy spending time with my partner and our toddler. As a family, we enjoy birding, gardening, going to the beach, and traveling.</p>
-                <p>I also like going to the gym, singing, listening to music (I love musical theatre!), reading (a favorite: <a href="https://www.goodreads.com/en/book/show/34728667">Children of Blood and Bone</a>), playing a game on Nintendo Switch (current favorite: <a href="https://zelda.nintendo.com/breath-of-the-wild/">Legend of Zelda: Breath of the Wild</a>), or watching some good TV (current favorites: Abbott Elementary, Survivor, and Bob&apos;s Burgers).</p> 
+                <p>Outside of work, I enjoy spending time with my partner and our son. As a family, we enjoy birding, exploring the city, gardening, going to the beach, and traveling.</p>
+                <p>I also like singing, listening to music (I love musical theatre!), reading (a favorite: <a href="https://www.goodreads.com/book/show/49127718-anxious-people">Anxious People</a>), going to the gym, playing a game on Nintendo Switch (current favorite: <a href="https://zelda.nintendo.com/tears-of-the-kingdom">Legend of Zelda: Tears of the Kingdom</a>), or watching some good TV (some favorites: Abbott Elementary, RHOSLC, and Bob&apos;s Burgers).</p> 
             </article>
             <img className="picture" src={provincetown} alt="picture of a beach in provincetown, ma"/>
         </section>
