@@ -1,7 +1,7 @@
 import musicalApp from '../assets/musical-app.png'
 import github from '../assets/github.png'
 import adventOfCode from '../assets/adventofcode.png'
-import chickadee from '../assets/chickadee-screenshot-landing-page.png'
+import chickadee from '../assets/chickadee-landing.jpg'
 
 function Projects() {
 
@@ -9,8 +9,8 @@ function Projects() {
         {
             name:"Chickadee",
             screenshot: chickadee,
-            altText: "chickadee app screenshot",
-            description: "A front-end app to view recent bird observations using Node.js, JavaScript, React, Bootstrap, Netlify, the eBird API, and the MediaWiki API.",
+            altText: "chickadee app landing page screenshot",
+            description: "A web app to browse recent bird sightings worldwide, as a list or on a map, with filters by place and species, species photos, and shareable links. Built with React, React Router, Leaflet, Bootstrap, Netlify Functions (with CDN caching), and the eBird API.",
             githubURL: "https://github.com/davidalantodd/chickadee",
             deploymentURL: "https://chickadeeapp.netlify.app"
         },
