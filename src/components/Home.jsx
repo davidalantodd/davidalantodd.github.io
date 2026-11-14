@@ -1,15 +1,190 @@
-import { NavLink } from "react-router-dom"
+import { useRef } from 'react'
+import Letters from './Letters'
+import { playCall } from '../sound/audio'
+import { clamp, prefersReducedMotion, useScrollScene } from '../lib/motion'
+
+// four short lines the sandpiper reveals as it walks across the sand
+const LINES = [
+  ['Now', 'building software that helps people'],
+  ['Before', 'coaching 77 apprentices into engineering careers'],
+  ['Before that', 'welcoming thousands of new college students'],
+  ['Off the clock', 'binoculars, seed packets, and a cast recording on repeat'],
+]
+
+const WAVES = [
+  { className: 'w1', d: 'M0 80 Q100 60 200 80 T400 80 T600 80 T800 80 T1000 80 T1200 80 T1400 80 T1600 80 V150 H0Z', fill: 'var(--sea-1)' },
+  { className: 'w2', d: 'M0 100 Q80 84 160 100 T320 100 T480 100 T640 100 T800 100 T960 100 T1120 100 T1280 100 T1440 100 T1600 100 V150 H0Z', fill: 'var(--sea-2)' },
+  { className: 'w3', d: 'M0 124 Q100 112 200 124 T400 124 T600 124 T800 124 T1000 124 T1200 124 T1400 124 T1600 124 V150 H0Z', fill: 'var(--sea-3)' },
+]
 
 function Home() {
-    return (
-    <>
-       <section id="home-section">
-        <h1 id="home-name">david alan todd</h1>
-        <h2 id="home-subtitle">mission-driven software engineer</h2>
-        <p>learn more about <NavLink to="about">me</NavLink>, my <NavLink to="experience">experience</NavLink>, and my <NavLink to="projects">work</NavLink>.</p>
-       </section>
-    </>
-    )
+  const seaRef = useRef(null)
+  const beachRef = useRef(null)
+  const walkRef = useRef(null)
+  const piperRef = useRef(null)
+  const tracksRef = useRef(null)
+  const inlandRef = useRef(null)
+  const path = useRef({ pts: [], segs: [], total: 0, prints: [], stopT: [], last: 99 })
+
+  // Map the walk: from the top of the beach, past each line, to the marsh link.
+  // Footprints are laid along that path and appear as the sandpiper passes them.
+  const layout = () => {
+    const walk = walkRef.current
+    if (!walk) return
+    const lines = [...walk.querySelectorAll('.line')]
+    const wr = walk.getBoundingClientRect()
+    const rel = r => ({ x: r.left - wr.left, y: r.top - wr.top })
+    const pts = [{ x: 8, y: 34 }]
+    lines.forEach(line => {
+      const r = rel(line.querySelector('.kicker').getBoundingClientRect())
+      pts.push({ x: r.x, y: r.y - 38 })
+    })
+    const ir = inlandRef.current.getBoundingClientRect()
+    const ip = rel(ir)
+    pts.push({ x: ip.x - 20, y: ip.y + ir.height / 2 - 26 })
+
+    const segs = []
+    let total = 0
+    for (let i = 1; i < pts.length; i++) {
+      const a = pts[i - 1]
+      const b = pts[i]
+      const len = Math.hypot(b.x - a.x, b.y - a.y)
+      segs.push({ a, b, len, start: total })
+      total += len
+    }
+
+    const tracks = tracksRef.current
+    tracks.innerHTML = ''
+    const prints = []
+    let k = 0
+    segs.forEach(sg => {
+      const ang = Math.atan2(sg.b.y - sg.a.y, sg.b.x - sg.a.x)
+      const nx = -Math.sin(ang)
+      const ny = Math.cos(ang)
+      for (let d = 10; d < sg.len; d += 16) {
+        const side = k++ % 2 ? 4 : -4
+        const f = document.createElement('span')
+        f.className = 'fp'
+        f.style.left = `${sg.a.x + Math.cos(ang) * d + nx * side}px`
+        f.style.top = `${sg.a.y + Math.sin(ang) * d + ny * side + 30}px`
+        f.style.transform = `rotate(${(ang * 180) / Math.PI + 90}deg)`
+        tracks.appendChild(f)
+        prints.push({ el: f, t: sg.start + d })
+      }
+    })
+    path.current = { pts, segs, total, prints, stopT: lines.map((_, i) => segs[i].start + segs[i].len), last: 99 }
+    update()
+    path.current.last = -1
+  }
+
+  const pointAt = L => {
+    const { segs, pts } = path.current
+    for (const sg of segs) {
+      if (L <= sg.start + sg.len) {
+        const u = sg.len ? (L - sg.start) / sg.len : 0
+        return { x: sg.a.x + (sg.b.x - sg.a.x) * u, y: sg.a.y + (sg.b.y - sg.a.y) * u, dir: sg.b.x >= sg.a.x ? 1 : -1 }
+      }
+    }
+    const end = pts[pts.length - 1]
+    return { x: end.x, y: end.y, dir: 1 }
+  }
+
+  const update = () => {
+    const p = path.current
+    if (!p.segs.length || !beachRef.current) return
+    const reduce = prefersReducedMotion()
+    const r = beachRef.current.getBoundingClientRect()
+    const progress = reduce ? 1 : clamp((window.innerHeight * 0.85 - r.top) / (r.height * 0.8), 0, 1)
+    const L = progress * p.total
+    const pt = pointAt(L)
+    const hop = reduce ? 0 : Math.abs(Math.sin(L / 9)) * 3
+    piperRef.current.style.transform = `translate(${pt.x - 23}px, ${pt.y - hop}px) scaleX(${pt.dir})`
+    p.prints.forEach(f => f.el.classList.toggle('on', f.t <= L))
+    let reached = -1
+    walkRef.current.querySelectorAll('.line').forEach((line, i) => {
+      const on = L >= p.stopT[i] - 2
+      line.classList.toggle('on', on)
+      if (on) reached = i
+    })
+    if (reached > p.last) playCall('peep')
+    p.last = reached
+  }
+
+  useScrollScene(layout, update)
+
+  const ripple = e => {
+    const sea = seaRef.current
+    const r = sea.getBoundingClientRect()
+    const dot = document.createElement('span')
+    dot.className = 'ripple'
+    dot.style.left = `${e.clientX - r.left}px`
+    dot.style.top = `${e.clientY - r.top}px`
+    sea.appendChild(dot)
+    setTimeout(() => dot.remove(), 1200)
+    playCall('hum')
+  }
+
+  return (
+    <section className="page" id="home">
+      <div className="gutter">
+        <div className="inner hero">
+          <Letters text="david alan todd" className="name" fx="bob" instrument="bell" />
+          <h2 className="subtitle">mission-driven software engineer</h2>
+          <p className="scroll-hint">scroll to follow the sandpiper</p>
+        </div>
+      </div>
+
+      <div className="sea" ref={seaRef} onClick={ripple} aria-hidden="true">
+        <div className="sun" />
+        {WAVES.slice(0, 2).map(w => (
+          <svg key={w.className} className={`wave ${w.className}`} viewBox="0 0 1600 150" preserveAspectRatio="none">
+            <path d={w.d} fill={w.fill} />
+          </svg>
+        ))}
+        <svg
+          className="scoter"
+          viewBox="0 0 44 24"
+          onClick={e => {
+            e.stopPropagation()
+            playCall('whistle')
+          }}
+        >
+          <title>surf scoter</title>
+          <use href="#scoter" />
+        </svg>
+        <svg className={`wave ${WAVES[2].className}`} viewBox="0 0 1600 150" preserveAspectRatio="none">
+          <path d={WAVES[2].d} fill={WAVES[2].fill} />
+        </svg>
+      </div>
+
+      <div className="beach gutter" ref={beachRef}>
+        <div className="inner walk" ref={walkRef}>
+          <div className="tracks" ref={tracksRef} aria-hidden="true" />
+          <div className="piper" ref={piperRef} aria-hidden="true">
+            <svg viewBox="0 0 60 46">
+              <use href="#sandpiper" />
+            </svg>
+          </div>
+          <div className="lines">
+            {LINES.map(([kicker, text], i) => (
+              <p className="line" style={{ '--i': i }} key={kicker}>
+                <span className="kicker">{kicker}</span>
+                <span className="text">{text}</span>
+              </p>
+            ))}
+          </div>
+          <div className="marsh-edge">
+            <a className="onward" href="#about" ref={inlandRef}>
+              <span>Keep walking into the marsh ↓</span>
+              <svg aria-hidden="true">
+                <use href="#reeds-icon" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default Home
