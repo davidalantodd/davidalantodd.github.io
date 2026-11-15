@@ -1,540 +1,1992 @@
-
-
+/* ============================================================
+   Design tokens. Light first; dark mode redefines the same names.
+   ============================================================ */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  margin:0;
-  padding:0;
-  font-weight: 300;
+  --bg: #ffffff;
+  --fg: #111418;
+  --muted: #5b6672;
+  --line: #e3e9ef;
+  --surface: #eef5fc;
+  --card: #fffdf9;
+
+  --blue: #2b8ee5;
+  --blue-deep: #1767b3;
+  --orange: #fdae81;
+  --orange-deep: #e97e40;
+  --foam: #48e3c4;
+  --green-deep: #14a88a;
+
+  /* water */
+  --sea-1: #8cc6f2;
+  --sea-2: #2b8ee5;
+  --sea-3: #1767b3;
+  --sun: #fdae81;
+
+  /* beach */
+  --sand: #f6ecdc;
+  --sand-wet: #e4d2b6;
+  --sand-deep: #d9c29e;
+
+  /* marsh, river and woods */
+  --dawn-1: #f8d9c4;
+  --dawn-2: #e6f1fb;
+  --reed: #6f9b52;
+  --reed-dark: #4f7a3a;
+  --cattail: #7a4f30;
+  --wood: #b98a62;
+  --wood-dark: #8a6242;
+  --forest: #3f7d5a;
+  --pine: #2f6b4c;
+  --leaf: #5cbf85;
+  --hill: #a8d2b2;
+  --trunk: #7a5a40;
+  --rock: #aaa49b;
+  --rock-dark: #8a847b;
+
+  /* the spring and the footer bank, mixed from the colors above */
+  --pond-bg: color-mix(in srgb, var(--leaf) 10%, var(--bg));
+  --pond-scene: color-mix(in srgb, var(--leaf) 16%, var(--bg));
+  --pond-bank: color-mix(in srgb, var(--hill) 60%, var(--bg));
+  --bank: color-mix(in srgb, var(--hill) 50%, var(--bg));
+
+  --font-body: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --hdr: 60px;
 }
 
-:html {
-  padding: 0;
-  margin:0;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c131b;
+    --fg: #e9eef3;
+    --muted: #9aa7b4;
+    --line: #213041;
+    --surface: #142130;
+    --card: #141b24;
+    --blue: #5aaaf0;
+    --blue-deep: #8fc4f5;
+    --orange: #f9a877;
+    --orange-deep: #f08a4e;
+    --green-deep: #3fd2b3;
+    --sea-1: #1d4d7a;
+    --sea-2: #1a5f9e;
+    --sea-3: #123e68;
+    --sun: #efe4c0;
+    --sand: #241f19;
+    --sand-wet: #1c2026;
+    --sand-deep: #3a3229;
+    --dawn-1: #3a2c2c;
+    --dawn-2: #142334;
+    --reed: #4f7a3a;
+    --reed-dark: #3b5e2b;
+    --cattail: #6a4428;
+    --wood: #7a5a40;
+    --wood-dark: #5e432e;
+    --forest: #2a5a40;
+    --pine: #1f4632;
+    --leaf: #357a52;
+    --hill: #24503a;
+    --trunk: #4a3626;
+    --rock: #5b554e;
+    --rock-dark: #48433d;
+    color-scheme: dark;
+  }
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-*{
-  --light-blue:#2B8EE5;
-  --lighter-blue: rgb(232, 242, 250);
-  --orange: #fdae81;
-  --dark-orange: #e97e40;
-  --green: #48e3c4;
-  --dark-blue:#213547;
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  text-wrap: balance;
 }
 
-header {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin: .5rem;
-}
-
-.home-icon {
-  margin: .5rem;
-}
-.home-icon:hover {
-  color:var(--light-blue);
-}
-
-nav {
-  display: flex;
-  flex-direction: row;
-  flex-wrap:wrap;
-  justify-content: space-around;
+p {
+  margin: 0;
 }
 
 a {
-  text-decoration:none;
-  color: black;
+  color: inherit;
+  text-decoration: none;
 }
 
-a:hover {
-  color:var(--light-blue);
+button {
+  font: inherit;
+  color: inherit;
 }
 
-.header-link{
-  padding: .5rem;
+img {
+  max-width: 100%;
+  display: block;
 }
 
-main {
-  display:flex;
-  flex-wrap:wrap;
-  flex-direction: column;
-  justify-content: center;
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.gutter {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+.inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.page {
+  position: relative;
+  overflow-x: clip;
+  scroll-margin-top: var(--hdr);
+}
+
+.kicker {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--orange-deep);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.site-header .inner {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  min-height: calc(100vh - 50px);
+  gap: 0.5rem 1rem;
+  padding-block: 0.85rem;
 }
 
-footer {
-  display:flex;
-  justify-content:center;
-  align-items: center;
-  padding-top: 2rem;
-}
-
-footer p {
-  padding: 1rem;
-}
-
-footer img {
-  height: 1.5rem;
-  margin: .5rem;
-  margin-right:1rem;
-  transition: .2s;
-}
-
-footer img:hover{
-  transform: scale(1.2);
-}
-
-
-/* Home Formatting */
-#home-section {
-  display:flex;
-  flex-wrap:wrap;
-  flex-direction: column;
-  justify-content: center;
+.nav {
+  display: flex;
+  gap: 1.2rem;
   align-items: center;
 }
 
-#home-name {
-  font-size: 8rem;
-  text-align: center;
-  color: var(--light-blue);
-  margin-top: 0;
-  margin-bottom: 0;
+.site-header a {
+  position: relative;
+  padding-bottom: 7px;
+  font-weight: 400;
+  transition: color 0.25s;
+}
+
+/* a wavy underline that draws in on hover and stays on the current section */
+.site-header a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 8px;
+  background: var(--blue);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='8' viewBox='0 0 20 8'%3E%3Cpath d='M0 4 Q5 0 10 4 T20 4' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E")
+    repeat-x 0 0 / 20px 8px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='8' viewBox='0 0 20 8'%3E%3Cpath d='M0 4 Q5 0 10 4 T20 4' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E")
+    repeat-x 0 0 / 20px 8px;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.4s ease;
+}
+
+.site-header a:hover,
+.site-header a.active {
+  color: var(--blue);
+}
+
+.site-header a:hover::after,
+.site-header a.active::after,
+.site-header a:focus-visible::after {
+  clip-path: inset(0 0 0 0);
+}
+
+.sound-btn {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem 0.2rem 0.55rem;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.sound-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sound-btn rect {
+  fill: currentColor;
+  transform-origin: center bottom;
+  transform-box: fill-box;
+  transform: scaleY(0.3);
+}
+
+.sound-btn[aria-pressed='true'] {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.sound-btn[aria-pressed='true'] rect {
+  animation: eq 1s ease-in-out infinite;
+}
+
+.sound-btn[aria-pressed='true'] rect:nth-child(2) {
+  animation-duration: 0.75s;
+}
+
+.sound-btn[aria-pressed='true'] rect:nth-child(3) {
+  animation-duration: 1.25s;
+}
+
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* ============================================================
+   Big blue headings, split into letters
+   ============================================================ */
+.letters {
   font-weight: 800;
+  color: var(--blue);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  user-select: none;
 }
 
-#home-subtitle {
-  font-size: 2rem;
-  font-weight:400;
-  text-align: center;
+.name {
+  font-size: clamp(3rem, 11.5vw, 8rem);
 }
-
-/* About Formatting */
-
 
 .title {
-  font-size: 6rem;
+  font-size: clamp(2.8rem, 8.5vw, 6rem);
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.l {
+  display: inline-block;
+  transition: color 0.9s ease;
+}
+
+[data-fx='bob'] .l {
+  transform-origin: 50% 92%;
+}
+
+[data-fx='sway'] .l,
+[data-fx='plop'] .l {
+  transform-origin: 50% 100%;
+}
+
+.l.go-bob {
+  animation: fx-bob 0.95s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.l.go-sway {
+  animation: fx-sway 1s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.l.go-plop {
+  animation: fx-plop 0.7s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.l.go-lift {
+  animation: fx-lift 0.95s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+@keyframes fx-bob {
+  18% {
+    transform: rotate(-9deg) translateY(-8px);
+  }
+  42% {
+    transform: rotate(7deg) translateY(-3px);
+  }
+  66% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes fx-sway {
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(7deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes fx-plop {
+  30% {
+    transform: translateY(10px) scale(1.08, 0.85);
+  }
+  55% {
+    transform: translateY(-4px) scale(0.97, 1.05);
+  }
+}
+
+@keyframes fx-lift {
+  30% {
+    transform: translate(3px, -16px) rotate(-7deg);
+  }
+  60% {
+    transform: translate(1px, -9px) rotate(4deg);
+  }
+}
+
+.page-head {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
   text-align: center;
-  color: var(--light-blue);
-  font-weight
-  : 800;
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+  padding-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
-.about-section  {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 90%;
-  margin: 1.5rem;
-  min-height: 200px;
-}
 
-.picture{
-  height: 300px;
-  width: 300px;
-  object-fit: cover;
-  border-radius: 1rem;
-}
 
-.section-text {
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%;
+/* ============================================================
+   Home: the coast
+   ============================================================ */
+/* the name, subtitle and sea fill most of the first screen, leaving just a strip of sand as a hint below */
+.hero {
+  --sea-h: 150px;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+  align-content: center;
   text-align: center;
-  padding: 2rem;
+  padding-top: clamp(2rem, 6vw, 4rem);
+  min-height: calc(90vh - var(--hdr) - var(--sea-h) - 1.5rem);
+  min-height: calc(90svh - var(--hdr) - var(--sea-h) - 1.5rem);
 }
 
-.title-box {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 300px;
-  background-color: var(--light-blue);
-  color:white;
-  font-size: 2rem;
-  font-weight: 600;
-  text-align: center;
-  border-radius: 1rem;
+.subtitle {
+  font-size: clamp(1.15rem, 2.8vw, 2rem);
+  font-weight: 400;
 }
 
-#edu-box{
-  background-color: var(--green);
+.scroll-hint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding-top: 0.6rem;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-#swe-box{
-  background-color: var(--orange);
+.scroll-hint.show {
+  opacity: 1;
+  transform: none;
 }
 
-.quote-section  {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 70%;
-  margin: 2rem;
-}
-
-/* Experience formatting */
-
-.job-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  width: 80%;
-  background-color: var(--lighter-blue);
-  border-radius: 1rem;
-}
-
-.work-box {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  font-weight: 600;
-  min-width: 200px;
-}
-
-.work-text {
-  min-width: 60%;
-}
-
-.work-box img {
+.sea {
+  position: relative;
   height: 150px;
-  border-radius: 1rem;
-  margin: 1rem;
+  margin-top: 1.5rem;
+  overflow: hidden;
 }
 
-.logo-and-title aside {
+.sun {
+  position: absolute;
+  left: 50%;
+  bottom: 36px;
+  width: 110px;
+  height: 110px;
+  margin-left: -55px;
+  border-radius: 50%;
+  background: var(--sun);
+}
+
+.wave {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.wave.w1 {
+  animation: drift 44s linear infinite;
+}
+
+.wave.w2 {
+  animation: drift 30s linear infinite reverse;
+}
+
+.wave.w3 {
+  animation: drift 20s linear infinite;
+}
+
+@keyframes drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.scoter {
+  position: absolute;
+  left: 24%;
+  bottom: 40px;
+  width: 74px;
+  height: 42px;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.scoter:hover {
+  animation: scoterbob 3.2s ease-in-out infinite;
+}
+
+@keyframes scoterbob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(5px) rotate(2deg);
+  }
+}
+
+.beach {
+  position: relative;
+  background: linear-gradient(var(--sand-wet), var(--sand) 30%, var(--sand));
+  overflow: hidden;
+  padding-block: 2.5rem 6rem;
+}
+
+.walk {
+  position: relative;
+}
+
+.tracks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fp {
+  position: absolute;
+  width: 5px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sand-deep);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fp.on {
+  opacity: 0.9;
+}
+
+.piper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 46px;
+  height: 36px;
+  z-index: 3;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.piper svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lines {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(4rem, 9vh, 6.5rem);
+  padding-top: 80px;
+}
+
+.line {
+  --step: min(13vw, 170px);
+  padding-left: calc(var(--i) * var(--step));
+  font-size: clamp(1.2rem, 2.8vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.3;
+  opacity: 0.08;
+  transition: opacity 0.5s ease;
+}
+
+.line .kicker {
+  display: block;
+  width: fit-content;
+  padding-bottom: 0.2rem;
+}
+
+.line .text {
+  display: inline-block;
+}
+
+.line.on {
+  opacity: 1;
+}
+
+.line.on .text {
+  animation: write 0.9s ease-out both;
+}
+
+@keyframes write {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.marsh-edge {
+  position: relative;
+  z-index: 2;
+  margin-top: 3.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.onward {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 400;
+  color: var(--blue);
+  font-size: 1.05rem;
+}
+
+.onward:hover span {
+  text-decoration: underline;
+}
+
+.onward svg {
+  width: 44px;
+  height: 42px;
+}
+
+/* birds in the scenery show their name on hover, or on tap on phones */
+.bird-id {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  outline: none;
+}
+
+.bird-id > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* the shared animal caption: an italic name with a short leader line down to the animal, like a field guide */
+.field-label {
+  position: fixed;
+  z-index: 50;
+  pointer-events: none;
+  display: grid;
+  justify-items: center;
+  transform: translate(-50%, calc(-100% - 4px));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.field-label.show {
+  opacity: 1;
+}
+
+.field-label.below {
+  transform: translate(-50%, 4px);
+}
+
+.field-label.below::after {
+  order: -1;
+}
+
+.field-label-text {
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--fg);
+  white-space: nowrap;
+  text-shadow: 0 0 3px var(--bg), 0 0 6px var(--bg), 0 0 10px var(--bg);
+}
+
+.field-label::after {
+  content: '';
+  width: 1px;
+  height: 12px;
+  background: var(--fg);
+  opacity: 0.55;
+}
+
+/* ============================================================
+   Bands of scenery between habitats
+   ============================================================ */
+.tr {
+  position: relative;
+  overflow: hidden;
+}
+
+.tr > svg.tr-art {
+  display: block;
+  width: 100%;
+}
+
+/* ============================================================
+   About: the marsh boardwalk, walked sideways
+   ============================================================ */
+#about {
+  background: var(--dawn-1);
+}
+
+.hwalk {
+  position: relative;
+}
+
+.hstage {
+  position: sticky;
+  top: var(--hdr);
+  height: calc(100vh - var(--hdr));
+  height: calc(100svh - var(--hdr));
+  overflow: hidden;
+  overflow: clip;
+  background: linear-gradient(var(--dawn-1), var(--dawn-2) 58%);
+}
+
+.layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  will-change: transform;
+}
+
+/* the foreground reeds sit in front of the birds but shouldn't block hovering them */
+.near-layer {
+  pointer-events: none;
+}
+
+.layer svg.paint {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  display: block;
+}
+
+.h-sun {
+  position: absolute;
+  width: 14vh;
+  height: 14vh;
+  border-radius: 50%;
+  background: var(--sun);
+  top: 22%;
+  opacity: 0.9;
+}
+
+.boardwalk {
+  position: absolute;
+  left: 0;
+  height: 26px;
+  bottom: 21%;
+  background: repeating-linear-gradient(90deg, var(--wood) 0 22px, var(--wood-dark) 22px 25px);
+  border-bottom: 5px solid var(--wood-dark);
+}
+
+.boardwalk::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -46px;
+  height: 4px;
+  background: var(--wood-dark);
+  opacity: 0.8;
+}
+
+.sign {
+  position: absolute;
+  bottom: calc(21% + 34px);
+  background: var(--card);
+  border: 3px solid var(--wood);
+  border-radius: 1rem;
+  padding: calc(1.1rem * var(--fit, 1)) calc(1.25rem * var(--fit, 1)) calc(1.2rem * var(--fit, 1));
+  display: grid;
+  gap: calc(0.6rem * var(--fit, 1));
+  align-content: start;
+  box-shadow: 0 18px 34px -24px rgba(40, 30, 20, 0.55);
+  transform: translateY(10px);
+  opacity: 0.88;
+  transition: transform 0.6s cubic-bezier(0.3, 1.3, 0.5, 1), opacity 0.5s;
+}
+
+.sign.act {
+  transform: none;
+  opacity: 1;
+}
+
+/* the field-guide header every sign opens with: the stop's bird, the topic, and the bird's name */
+.sign-head {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  gap: 0.2rem 0.55rem;
+  padding-bottom: calc(0.55rem * var(--fit, 1));
+  border-bottom: 1px dashed var(--line);
 }
 
-.logo-and-title {
-  width: 300px;
+.sign-bird {
+  width: calc(40px * var(--fit, 1));
+  height: calc(32px * var(--fit, 1));
+  flex: none;
+  overflow: visible;
 }
 
-.job-title {
-  font-weight: 500;
-  /* font-size: 1.25rem; */
+.sign-head em {
+  font-size: calc(0.88rem * var(--fit, 1));
+  color: var(--muted);
+  white-space: nowrap;
 }
 
-.years-worked {
+.sign-head .kicker {
+  white-space: nowrap;
+}
+
+.sign h3.with-photo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.with-photo img {
+  width: calc(48px * var(--fit, 1));
+  height: calc(48px * var(--fit, 1));
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  border: 2px solid var(--card);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.sign h3 {
+  font-size: calc(clamp(1.4rem, 2.6vw, 1.9rem) * var(--fit, 1));
   font-weight: 300;
-  margin-bottom: 1rem;
-  /* font-size: 1.25rem; */
+  color: var(--blue);
+  line-height: 1.15;
 }
 
-.job-section ul li {
-  padding: .25rem;
-  text-align: start;
+.sign p {
+  font-size: calc(0.95rem * var(--fit, 1));
 }
 
-/* #personal-box{
-  background-color: var(--light-blue);
-} */
+.sign .kicker {
+  font-size: calc(0.92rem * var(--fit, 1));
+}
 
-.linked-in-section p {
-  display:flex;
-  justify-content: center;
+.sign a {
+  color: var(--blue);
+}
+
+.sign a:hover {
+  text-decoration: underline;
+}
+
+.who {
+  display: flex;
+  gap: 1rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.linked-in-section p a img {
-  width: 1.5rem;
-  margin: .5rem;
-  transition: .2s;
+.who img {
+  width: calc(92px * var(--fit, 1));
+  height: calc(92px * var(--fit, 1));
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--card);
+  box-shadow: 0 0 0 1px var(--line);
 }
 
-.linked-in-section p a img:hover{
-  transform: scale(1.2);
+.who b {
+  display: block;
+  font-size: calc(1.2rem * var(--fit, 1));
+  font-weight: 600;
 }
 
-.tech-stack-title {
-  font-size: 3rem;
-  text-align: center;
-  color: var(--light-blue);
+.who span {
+  color: var(--muted);
+  font-size: calc(0.9rem * var(--fit, 1));
+}
+
+.big {
+  font-size: clamp(2rem, 4vw, 2.6rem);
   font-weight: 800;
+  color: var(--blue);
+  line-height: 1;
+  letter-spacing: -0.01em;
 }
 
-.tech-stack {
+.field {
+  display: grid;
+  gap: calc(0.5rem * var(--fit, 1));
+  border-top: 1px dashed var(--line);
+  padding-top: calc(0.7rem * var(--fit, 1));
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 0.75rem;
+  font-size: calc(0.88rem * var(--fit, 1));
+}
+
+.field-row > b {
+  font-size: calc(0.85rem * var(--fit, 1));
+  color: var(--muted);
+  font-weight: 400;
+  padding-top: 0.05rem;
+}
+
+.tags {
   display: flex;
-  flex-wrap:wrap;
-  flex-direction: row;
-  justify-content: center;
-  width: 90%;
-}
-
-.tech-stack a{
-  padding: 1rem;
-}
-
-
-.tech-stack a img{
-  height: 80px;
-  transition: .2s;
-}
-
-
-.tech-stack a img:hover{
-  transform: scale(1.2);
-}
-
-/* projects formatting*/
-
-.project-section {
-  display:flex;
   flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 0.35rem;
 }
 
-.project {
+.tags span {
+  font-size: calc(0.78rem * var(--fit, 1));
+  font-weight: 400;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--fg);
+}
+
+.tags.mono span {
+  font-family: var(--font-mono);
+  font-size: calc(0.72rem * var(--fit, 1));
+  border-radius: 5px;
+}
+
+.h-bird,
+.h-egret {
+  position: absolute;
+  overflow: visible;
+  cursor: pointer;
+  transform-origin: 50% 100%;
+}
+
+.h-bird.act {
+  animation: perk 1.4s ease-in-out 1;
+}
+
+@keyframes perk {
+  30% {
+    transform: translateY(-8px) rotate(-3deg);
+  }
+  60% {
+    transform: translateY(0);
+  }
+}
+
+.h-intro {
+  position: absolute;
+  bottom: calc(21% + 60px);
+}
+
+.h-intro .arrow {
+  display: inline-block;
+  font-size: 2.4rem;
+  color: var(--blue);
+  animation: nudge 1.6s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  50% {
+    transform: translateX(14px);
+  }
+}
+
+.osprey {
+  position: absolute;
+  left: 62%;
+  top: 9%;
+  width: 92px;
+  height: 38px;
+  z-index: 4;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.h-hud {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 14px;
   display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  background-color: var(--lighter-blue);
-  border-radius: 1rem;
-  margin: 1rem;
+  gap: 6px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  padding: 0.5rem 0.7rem;
+  border-radius: 999px;
+  z-index: 5;
 }
 
-.project-title {
-  font-size: 3rem;
-  color: var(--light-blue);
+.h-hud i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.h-hud i.on {
+  background: var(--orange-deep);
+  transform: scale(1.3);
+}
+
+.tr .tr-animal {
+  position: absolute;
+  width: 70px;
+  height: 34px;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.swim {
+  animation: swim 2.6s ease-in-out infinite;
+}
+
+@keyframes swim {
+  50% {
+    transform: translate(-12px, 6px);
+  }
+}
+
+/* ============================================================
+   Experience: the river trail through the woods
+   ============================================================ */
+.trail-wrap {
+  position: relative;
+  padding-block: 1.5rem 1rem;
+}
+
+.trail-svg {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+/* a panel the river flows under, so the title reads like a trail sign */
+.on-trail {
+  background: var(--bg);
+  border-radius: 1.5rem;
+  max-width: 46rem;
+  margin: 0 auto 2.5rem;
+  padding: 1.4rem 1.5rem 1.2rem;
+  box-shadow: 0 0 0 12px var(--bg);
+}
+
+.trail-list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(3rem, 7vw, 5.5rem);
+}
+
+.card {
+  position: relative;
+  width: min(44%, 500px);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 1.25rem 1.35rem 1.35rem;
+  display: grid;
+  gap: 0.65rem;
+  transform: translateY(14px);
+  transition: transform 0.6s cubic-bezier(0.3, 1.3, 0.5, 1), box-shadow 0.3s;
+}
+
+.card.seen {
+  transform: none;
+}
+
+.card:hover {
+  box-shadow: 0 18px 30px -22px rgba(23, 103, 179, 0.6);
+}
+
+.card.right {
+  margin-left: auto;
+}
+
+.role-head {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.role-head .logo {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 4px;
+}
+
+.card .yrs {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.card h3 {
+  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.card h3 a {
+  color: var(--blue);
+}
+
+.card h3 a:hover {
+  text-decoration: underline;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+}
+
+.stat {
+  display: grid;
+}
+
+.stat b {
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.stat span {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.notes-list {
+  margin: 0;
+  padding: 0.7rem 0 0 1rem;
+  border-top: 1px dashed var(--line);
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* the bird spotted at each bend perches on the card's top edge; its name shows on hover */
+.spotted {
+  position: absolute;
+  top: -28px;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.card.left .spotted {
+  right: -10px;
+  flex-direction: row-reverse;
+}
+
+.card.right .spotted {
+  left: -10px;
+}
+
+.spotted svg {
+  width: 56px;
+  height: 44px;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.spotted svg.wide {
+  width: 70px;
+}
+
+.card.seen .spotted svg {
+  animation: arrive 0.8s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes arrive {
+  from {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+}
+
+.spotted em {
+  font-style: normal;
+  background: var(--bg);
+  padding: 0 0.3rem;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover .spotted em,
+.card:focus-within .spotted em {
+  opacity: 1;
+}
+
+.log-divider {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  text-align: center;
+  padding-block: 0.5rem;
+}
+
+.log-divider svg {
+  width: min(100%, 420px);
+  height: auto;
+  overflow: visible;
+}
+
+.log-divider p {
+  font-size: 0.95rem;
+  background: var(--bg);
+  padding: 0.1rem 0.6rem;
+  border-radius: 6px;
+}
+
+.log-divider b {
+  font-weight: 600;
+  color: var(--orange-deep);
+}
+
+.turtle {
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.turtle.plopped {
+  animation: plop 2.6s ease-in-out;
+}
+
+@keyframes plop {
+  20%,
+  80% {
+    transform: translate(10px, 34px) rotate(28deg);
+    opacity: 0;
+  }
+}
+
+.splash {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.splash.go {
+  animation: splash 0.7s ease-out;
+}
+
+@keyframes splash {
+  from {
+    opacity: 0.9;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+}
+
+/* the life list sits on a panel the river flows under */
+.stack-panel {
+  position: relative;
+  z-index: 1;
+  max-width: 52rem;
+  margin: 3.5rem auto 0;
+  background: var(--bg);
+  border-radius: 1.5rem;
+  padding: 1.6rem 1.6rem 1.8rem;
+  box-shadow: 0 0 0 12px var(--bg);
+  display: grid;
+  gap: 0.9rem;
+}
+
+.stack-panel h2 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-align: center;
+}
+
+.stack-panel .sub {
+  text-align: center;
+  color: var(--muted);
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+.stack-panel .sub a {
+  color: var(--blue);
+}
+
+.ll-legend {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.ll-legend > span {
+  display: inline-flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.ll-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0.8rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 0.1rem 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.ll {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px dotted var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+}
+
+.box {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--muted);
+  border-radius: 3px;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.ll.often .box,
+.box.on {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.box svg {
+  width: 12px;
+  height: 12px;
+  overflow: visible;
+}
+
+.river-tail {
+  height: 48px;
+}
+
+/* ============================================================
+   Projects: the spring-fed pond
+   ============================================================ */
+.spring {
+  background: var(--pond-bg);
+}
+
+.scrolly {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.25rem, 3vw, 3rem);
+  align-items: start;
+  padding-bottom: 2rem;
+}
+
+.scene-col {
+  position: sticky;
+  top: calc(var(--hdr) + 12px);
+}
+
+.scene-wrap {
+  height: calc(100vh - var(--hdr) - 40px);
+  min-height: 280px;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: var(--pond-scene);
+}
+
+.scene-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.scene-wrap [data-call] {
+  cursor: pointer;
+}
+
+.animal-g {
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+
+.focus-on .animal-g {
+  opacity: 0.35;
+  filter: saturate(0.4);
+}
+
+.focus-on .animal-g.on {
+  opacity: 1;
+  filter: none;
+}
+
+.tag {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.animal-g.on .tag {
+  opacity: 1;
+}
+
+.tag rect {
+  fill: var(--bg);
+  stroke: var(--orange-deep);
+  stroke-width: 2;
+}
+
+.tag text {
+  font: 600 17px var(--font-body);
+  fill: var(--fg);
+}
+
+.dip,
+.throat,
+.flicker-bird,
+.spring-ring,
+.bubble {
+  transform-box: fill-box;
+}
+
+.dip {
+  transform-origin: 70% 90%;
+}
+
+.animal-g.on .dip {
+  animation: dip 1.6s ease-in-out infinite;
+}
+
+@keyframes dip {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+  75% {
+    transform: rotate(26deg);
+  }
+}
+
+.throat {
+  transform-origin: 50% 0%;
+}
+
+.animal-g.on .throat {
+  animation: throat 0.7s ease-in-out infinite;
+}
+
+@keyframes throat {
+  50% {
+    transform: scale(1.6);
+  }
+}
+
+.notes-up text {
+  opacity: 0;
+  font: 600 22px var(--font-body);
+  fill: var(--blue);
+}
+
+.animal-g.on .notes-up text {
+  animation: noteup 2.2s ease-out infinite;
+}
+
+.animal-g.on .notes-up text:nth-child(2) {
+  animation-delay: 0.7s;
+  fill: var(--orange-deep);
+}
+
+.animal-g.on .notes-up text:nth-child(3) {
+  animation-delay: 1.4s;
+  fill: var(--green-deep);
+}
+
+@keyframes noteup {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(26px, -70px);
+  }
+}
+
+.animal-g.on .dfly-path {
+  animation: dart 4s ease-in-out infinite;
+}
+
+@keyframes dart {
+  25% {
+    transform: translate(-30px, -26px);
+  }
+  50% {
+    transform: translate(24px, -10px);
+  }
+  75% {
+    transform: translate(-10px, 22px);
+  }
+}
+
+.stars path {
+  opacity: 0.25;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.animal-g.on .stars path {
+  animation: twinkle 1.8s ease-in-out infinite;
+}
+
+.animal-g.on .stars path:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.animal-g.on .stars path:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+.animal-g.on .stars path:nth-child(4) {
+  animation-delay: 1.2s;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.spring-ring {
+  transform-origin: center;
+  animation: springring 5s ease-out infinite;
+}
+
+@keyframes springring {
+  from {
+    transform: scale(0.3);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.bubble {
+  transform-origin: center;
+  animation: bubble 4.5s ease-in infinite;
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-26px) scale(1);
+    opacity: 0;
+  }
+}
+
+.flicker-bird {
+  transform-origin: 50% 80%;
+}
+
+.flicker-bird.peck {
+  animation: peck 0.09s ease-in-out 14;
+}
+
+@keyframes peck {
+  50% {
+    transform: rotate(12deg);
+  }
+}
+
+/* each project gets most of a screen so the pond view has time to settle on its animal */
+.proj {
+  min-height: 66vh;
+  display: grid;
+  align-content: center;
+  padding-block: 1.5rem;
+}
+
+.proj-card {
+  display: grid;
+  gap: 0.8rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  padding: 0.9rem 0.9rem 1.2rem;
+  transition: box-shadow 0.3s;
+}
+
+.proj-card:hover {
+  box-shadow: 0 18px 30px -22px rgba(23, 103, 179, 0.6);
+}
+
+.proj-card > :not(.shot) {
+  margin-inline: 0.35rem;
+}
+
+.proj .shot {
+  display: block;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  aspect-ratio: 16 / 10;
+  cursor: pointer;
+}
+
+.proj .shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.proj:hover .shot img {
+  transform: scale(1.03);
+}
+
+.proj h3 {
+  font-size: clamp(2rem, 4.2vw, 2.9rem);
   font-weight: 300;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  color: var(--blue);
+  line-height: 1.1;
 }
 
-.project .screenshot{
-  width: 400px;
-  border-radius: 1rem;
-  margin: 1rem;
-}
-
-.project .project-text {
+.proj-links {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin: 1rem;
+  gap: 0.6rem;
+  align-items: center;
 }
 
-.project .links {
-  display: flex;
-  flex-wrap: wrap;
+.proj-links a {
+  display: inline-flex;
+  color: var(--fg);
+  padding: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  transition: color 0.25s, border-color 0.25s, transform 0.25s;
 }
 
-.project .sourceCode {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  margin: 1rem;
+.proj-links a:hover,
+.proj-links a:focus-visible {
+  color: var(--blue);
+  border-color: var(--blue);
+  transform: translateY(-2px);
 }
 
-.project .deployedURL {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+.proj-links .icon {
+  width: 24px;
+  height: 24px;
 }
 
-.project .github {
-  width: 1rem;
-  margin-left: .5rem;
-  transition: .2s;
+/* the quote gets most of a screen to itself, so it reads as the ending */
+.closing {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  text-align: center;
+  gap: 1rem;
+  min-height: 70vh;
+  min-height: 70svh;
+  padding-block: 4rem;
+}
+
+.closing blockquote {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  font-style: italic;
+  font-weight: 300;
+  max-width: 44rem;
+  line-height: 1.45;
+}
+
+.closing figcaption {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--muted);
 }
 
 
-.project .github:hover{
-  transform: scale(1.2);
+/* ============================================================
+   Footer: the near shore of the pond
+   ============================================================ */
+.site-foot {
+  background: var(--pond-bg);
 }
 
-@media only screen and (max-width: 1137px) {
-  .work-text {
-    min-width: 90%;
-    padding-top: .5rem;
+.shore {
+  position: relative;
+}
+
+.shore-art {
+  display: block;
+  width: 100%;
+  height: 110px;
+}
+
+.foot-bird {
+  position: absolute;
+  top: -6px;
+  width: 50px;
+  height: 44px;
+  cursor: pointer;
+  overflow: visible;
+  transform-origin: 50% 100%;
+}
+
+.foot-bird.wag {
+  animation: wag 0.5s ease-in-out 3;
+}
+
+@keyframes wag {
+  50% {
+    transform: rotate(-8deg) translateY(1px);
   }
 }
 
-@media screen and (max-width: 900px) {
-  .job-section {
-    flex-direction: column;
+.foot-band {
+  background: var(--bank);
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-block: 1rem 2rem;
+  font-size: 0.92rem;
+}
+
+.next {
+  color: var(--blue);
+  font-weight: 400;
+  font-size: 1.05rem;
+}
+
+.next:hover {
+  text-decoration: underline;
+}
+
+.socials {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  color: var(--muted);
+}
+
+.socials a {
+  color: var(--fg);
+  display: inline-flex;
+  padding: 0.2rem;
+  border-radius: 8px;
+  transition: color 0.25s, transform 0.25s;
+}
+
+.socials a:hover,
+.socials a:focus-visible {
+  color: var(--blue);
+  transform: translateY(-2px);
+}
+
+.icon {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon .thin {
+  stroke-width: 0.95;
+}
+
+.icon .dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ============================================================
+   Small screens and reduced motion
+   ============================================================ */
+/* phones: the boardwalk signs sit near the top of the scene with slightly tighter text, so they fit without scrolling */
+@media (max-width: 699px) {
+  .sign {
+    top: 10px;
+    bottom: auto;
+    padding: 0.8rem 0.95rem 0.9rem;
+    gap: 0.45rem;
   }
 
-  .logo-and-title {
-    width:100%;
+  .sign p {
+    font-size: calc(0.86rem * var(--fit, 1));
   }
 
-  .reversed-section{
-    flex-direction: column-reverse;
+  .field-row {
+    font-size: calc(0.82rem * var(--fit, 1));
   }
 
-  .section-text {
+  .who img {
+    width: calc(64px * var(--fit, 1));
+    height: calc(64px * var(--fit, 1));
+  }
+  /* the signs fill the sky on phones, so the osprey flies low over the water instead */
+  .osprey {
+    top: auto;
+    bottom: 64px;
+    left: 6%;
+  }
+}
+
+@media (max-width: 860px) {
+  .card {
     width: 100%;
+    margin-left: 0 !important;
   }
 
-  .work-text {
-    width: 90%;
+  .trail-list {
+    padding-left: 46px;
   }
 
-  .logo-and-title {
-    width: 90%;
+  .card .spotted {
+    left: auto !important;
+    right: 8px !important;
+    flex-direction: row-reverse !important;
   }
 
-  .project {
-    flex-direction: column;
-    text-align: center;
+  .scrolly {
+    grid-template-columns: 1fr;
   }
 
-  .project .project-text {
-    align-items: center;
+  .scene-col {
+    top: calc(var(--hdr) + 4px);
+    z-index: 5;
+    background: var(--pond-bg);
+    padding-bottom: 0.4rem;
   }
 
-  .project .screenshot {
-    width: 85%;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .project .screenshot {
-    width: 85%;
+  .scene-wrap {
+    height: 32vh;
   }
 
-  .project-title {
-    font-size: 2.5rem;
-  }
-
-  .about-section  {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-  }
-
-  .reversed-section{
-    flex-direction: column-reverse;
-  }
-
-  .title {
-    font-size: 3rem;
-  }
-
-  .section-text {
-    width: 60%;
+  .proj {
+    min-height: 60vh;
   }
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 3){
-  #home-name {
-    font-size: 6rem;
-    max-width: 90%;
+@media (max-width: 640px) {
+  .site-header .inner {
+    padding-block: 0.6rem;
   }
 
-  #home-subtitle {
-    font-size: 1.5rem;
-    max-width: 90%;
+  .nav {
+    gap: 0.75rem;
   }
 
-  .title {
-    font-size: 3rem;
-    max-width: 90%;
+  .site-header a {
+    font-size: 0.92rem;
   }
 
-  .project-title {
-    font-size: 2.5rem;
+  .sound-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
-  #home-section p {
-    max-width: 70%;
-    text-align: center;
+  .sound-btn {
+    padding: 0.3rem 0.45rem;
   }
 
- .reversed-section{
-    flex-direction: column-reverse;
+  .line {
+    --step: 22px;
   }
 
-  .section-text {
-    width: 80%;
+  .sea {
+    height: 120px;
   }
 
-  .work-box img {
-    height: 100px;
+  .hero {
+    --sea-h: 120px;
   }
 
-  .work-text {
-    padding: 0;
-    width: 90%;
+  .sun {
+    width: 84px;
+    height: 84px;
+    margin-left: -42px;
+    bottom: 28px;
   }
 
-  .work-text ul {
-    padding-inline-start: 10px;
-    width: 100%;
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
   }
 
-  .tech-stack a img {
-    height: 60px;
+  .card .spotted em {
+    display: none;
   }
 
-  .tech-stack a{
-    padding: .5rem;
+  .sign {
+    padding: 0.9rem 1rem 1rem;
   }
 
-  .linked-in-section {
-    width: 70%;
-    text-align: center;
+  .osprey {
+    width: 64px;
+    height: 26px;
   }
 
-  .project .screenshot {
-    width: 90%;
+  .scoter {
+    width: 50px;
+    height: 28px;
+    left: 16%;
+    bottom: 34px;
   }
-
-
 }
 
-
-
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* short screens: lift the osprey clear of the signs */
+@media (max-height: 640px) {
+  .osprey {
+    top: 2%;
+    width: 70px;
+    height: 29px;
+  }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: var(--dark-blue);
-    background-color: #ffffff;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  
-  button {
-    background-color: #f9f9f9;
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
   }
-} */
+}
