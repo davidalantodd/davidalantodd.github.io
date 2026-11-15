@@ -24,20 +24,6 @@ export const ROLES = [
     ],
   },
   {
-    years: '2024',
-    title: 'Volunteer Software Engineer',
-    org: "New Jersey Parents' Caucus",
-    logo: njpc,
-    url: 'https://newjerseyparentscaucus.org/',
-    bird: { name: 'American goldfinch', note: "New Jersey's state bird", call: 'chip', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#f2d02b', '--belly': '#f7e27a', '--wing': '#222', '--cap': '#222', '--beak': '#e8a23c' } },
-    notes: [
-      'Decrease database maintenance task time and improve user experience by implementing a bulk delete feature for admin users to remove resources with confirmation modal and snack bar components.',
-      'Improve data quality by adding a 409 HTTP response in back-end auth microservice and alerting users in UI when an attempt is made to register an email that already exists in the database during signup.',
-      'Contribute to codebase and complete code reviews as part of the technical team using JavaScript/TS, React, Node, MongoDB, and Vercel.',
-      "Build and maintain a centralized hub of resources related to the services provided by the New Jersey Parents' Caucus, including mental health evaluation, family intake, and referral database management.",
-    ],
-  },
-  {
     years: '2022 – 2025',
     title: 'Software Engineering Instructor',
     org: 'Multiverse',
@@ -60,6 +46,20 @@ export const ROLES = [
       "Facilitated 76+ progress reviews and 166+ coaching meetings, aligning with apprentices and managers on impact objectives. Drive improvement in client satisfaction, increasing manager NPS from 7 to 69/100.",
       "Reduced time of project feedback and progress review workflows by 50% by collaborating with other teammates to develop internal automation tools using Coda.",
       "Improved technical credibility and teaching pedagogy skills by engaging in technical upskilling opportunities, such as participating in Advent of Code and self-study projects.",
+    ],
+  },
+  {
+    years: '2024',
+    title: 'Volunteer Software Engineer',
+    org: "New Jersey Parents' Caucus",
+    logo: njpc,
+    url: 'https://newjerseyparentscaucus.org/',
+    bird: { name: 'American goldfinch', note: "New Jersey's state bird", call: 'chip', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#f2d02b', '--belly': '#f7e27a', '--wing': '#222', '--cap': '#222', '--beak': '#e8a23c' } },
+    notes: [
+      'Decrease database maintenance task time and improve user experience by implementing a bulk delete feature for admin users to remove resources with confirmation modal and snack bar components.',
+      'Improve data quality by adding a 409 HTTP response in back-end auth microservice and alerting users in UI when an attempt is made to register an email that already exists in the database during signup.',
+      'Contribute to codebase and complete code reviews as part of the technical team using JavaScript/TS, React, Node, MongoDB, and Vercel.',
+      "Build and maintain a centralized hub of resources related to the services provided by the New Jersey Parents' Caucus, including mental health evaluation, family intake, and referral database management.",
     ],
   },
   // the turtle log marks the switch from higher ed to software
