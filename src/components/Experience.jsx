@@ -1,281 +1,259 @@
-import multiverse from '../assets/Multiverse_Symbol_rgb_ultra.png'
-import emerson from '../assets/emerson.jpeg'
-import wellesley from '../assets/wellesley.jpeg'
-import uga from '../assets/uga.jpeg'
-import umd from '../assets/umd.jpeg'
-import linkedin from '../assets/linkedin.png'
-import njpc from '../assets/NJPC.png'
-import saic from '../assets/SAIC.png'
+import { useRef } from 'react'
+import Letters from './Letters'
+import { ROLES, LIFE_LIST } from '../data/experience'
+import { playCall } from '../sound/audio'
+import { clamp, prefersReducedMotion, replay, seeded, useScrollScene } from '../lib/motion'
+import { curve, tree } from '../lib/draw'
 
+function SpottedBird({ bird }) {
+  return (
+    <div className="spotted">
+      <svg className={bird.wide ? 'wide' : undefined} viewBox={bird.viewBox} style={bird.colors} onClick={() => playCall(bird.call)} aria-hidden="true">
+        <use href={`#${bird.symbol}`} />
+      </svg>
+      <em>
+        {bird.name} · {bird.note}
+      </em>
+    </div>
+  )
+}
+
+function RoleCard({ role, side }) {
+  return (
+    <article className={`card ${side}`} data-call={role.bird.call}>
+      <SpottedBird bird={role.bird} />
+      <span className="yrs">{role.years}</span>
+      <h3>
+        {role.title}{' '}
+        <a href={role.url} target="_blank" rel="noreferrer">
+          @ {role.org}
+        </a>
+      </h3>
+      {role.stats && (
+        <div className="stats">
+          {role.stats.map(([big, label]) => (
+            <div className="stat" key={label}>
+              <b>{big}</b>
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {role.highlight && <p>{role.highlight}</p>}
+      <ul className="notes-list">
+        {role.notes.map(note => (
+          <li key={note}>{note}</li>
+        ))}
+      </ul>
+    </article>
+  )
+}
+
+function TurtleLog({ logRef }) {
+  const plop = e => {
+    replay(e.currentTarget, 'plopped')
+    playCall('plop')
+  }
+  return (
+    <div className="log-divider" ref={logRef}>
+      <svg viewBox="0 0 420 90" aria-hidden="true">
+        <g className="splash">
+          <circle cx="210" cy="72" r="26" fill="none" stroke="var(--sea-2)" strokeWidth="3" />
+        </g>
+        <path d="M40 66 L380 60" stroke="var(--wood-dark)" strokeWidth="18" strokeLinecap="round" />
+        <path d="M40 60 L380 54" stroke="var(--wood)" strokeWidth="6" strokeLinecap="round" opacity=".7" />
+        <path d="M350 58 l20 -26" stroke="var(--wood-dark)" strokeWidth="5" strokeLinecap="round" />
+        <g className="turtle" onClick={plop}>
+          <use href="#turtle" x="110" y="36" width="52" height="26" />
+        </g>
+        <g className="turtle" onClick={plop}>
+          <use href="#turtle" x="180" y="32" width="60" height="30" />
+        </g>
+        <g className="turtle" onClick={plop}>
+          <use href="#turtle" x="262" y="32" width="46" height="23" />
+        </g>
+      </svg>
+      <p>
+        <b>2022</b> · from higher ed to software
+      </p>
+    </div>
+  )
+}
+
+function LifeList() {
+  return (
+    <div className="stack-panel">
+      <h2>life list</h2>
+      <p className="sub">
+        Birders keep a life list of every species they&apos;ve seen. This is mine for technology. More of the trail is on{' '}
+        <a href="https://www.linkedin.com/in/david-alan-todd" target="_blank" rel="noreferrer">
+          LinkedIn
+        </a>
+        .
+      </p>
+      <div className="ll-legend" aria-hidden="true">
+        <span>
+          <span className="box on">
+            <svg viewBox="0 0 12 12">
+              <use href="#check" />
+            </svg>
+          </span>
+          seen often
+        </span>
+        <span>
+          <span className="box" />
+          on the list
+        </span>
+      </div>
+      <ul className="ll-grid">
+        {LIFE_LIST.map(([name, often]) => (
+          <li className={often ? 'll often' : 'll'} key={name}>
+            <span className="box" aria-hidden="true">
+              {often && (
+                <svg viewBox="0 0 12 12">
+                  <use href="#check" />
+                </svg>
+              )}
+            </span>
+            {name}
+            {often && <span className="visually-hidden"> (seen often)</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// Experience: a river trail walking upstream through the woods, newest role first.
+// The river runs down the page behind the cards, and a dotted trail draws itself as you scroll.
 function Experience() {
+  const wrapRef = useRef(null)
+  const svgRef = useRef(null)
+  const listRef = useRef(null)
+  const logRef = useRef(null)
+  const state = useRef({ H: 0, plopped: false })
 
-    const jobs = [
-        {
-            title: "Full Stack Developer",
-            company: "SAIC",
-            companyLink: "https://www.saic.com/",
-            yearsWorked: "2025 - present",
-            responsibilities: [
-                "Design, develop, and implement features for an application built with C#/.NET, Vue.js, and PostgreSQL, following agile development practices.",
-                "Update software design documentation and provide support for solutions deployed to production.",
-            ],
-            logo: saic,
-            altText: "SAIC logo"
-        },
-        {
-            title: "Software Engineering Instructor",
-            company: "Multiverse",
-            companyLink: "https://www.multiverse.io",
-            yearsWorked: "2022 - 2025",
-            responsibilities: [
-                "Teach 165+ technical workshops over two years to software engineering apprentices to increase their knowledge of front-end, back-end, and deployment technologies, including Node.js, Express, React, OOP, RESTful APIs, Databases, Data Security, TDD, UI Development, Docker, CI/CD, and Cloud.",
-                "Build RESTful API endpoints secured with data encryption, basic auth, JWTs, and OAuth using C#/.NET to serve as alternative learning materials for back-end development. Expand apprenticeship curriculum tech stack coverage by 20% to enable additional apprentices to utilize curriculum materials.",
-                "Design and deliver a series of data structures and algorithms coding challenges (JavaScript/Node) to strengthen fundamental programming concepts in junior software engineers. Boost overall Multiverse product credibility by enhancing personal coach expertise score from 5.4 to 5.8/6.",
-                "Mentor 77 software engineering apprentices across 11 partner companies (e.g. Cisco, AMEX, Verizon, HP) and 5 cohorts over two years. Elevated end-user experience, increasing apprentice NPS from 23 to 95/100 by providing personalized guidance through 107+ code reviews (in 7 programming languages).",
-                "Facilitate 76+ progress reviews and 166+ one-to-one coaching meetings over two years, aligning with apprentices and managers on objectives to create business impact. Drive significant improvement in client satisfaction, increasing manager ROI score from 4.8 to 5.4/6 and manager NPS from 7 to 69/100.",
-                "Reduce time of project feedback and progress review workflows by 50% by collaborating with other teammates to develop internal automation tools using Coda.",
-                "Improve technical credibility and teaching pedagogy skills by engaging in continuous technical upskilling opportunities, such as participating in Advent of Code and self-study projects."
-            ],
-            logo: multiverse,
-            altText: "multiverse logo"
-        },
-        {
-            title: "Volunteer Software Engineer",
-            company: "New Jersey Parents' Caucus",
-            companyLink: "https://newjerseyparentscaucus.org/",
-            yearsWorked: "2024",
-            responsibilities: [
-                "Decrease database maintenance task time and improve user experience by implementing a bulk delete feature for admin users to remove resources with confirmation modal and snack bar components",
-                "Improve data quality by adding a 409 HTTP response in back-end auth microservice and alerting users in UI when an attempt is made to register an email that already exists in the database during signup",
-                "Contribute to codebase and complete code reviews as part of the technical team using JavaScript/TS, React, Node, MongoDB, and Vercel.",
-                "Build and maintain a centralized hub of resources related to the services provided by the New Jersey Parents' Caucus, including mental health evaluation, family intake, and referral database management."
-            ],
-            logo: njpc,
-            altText: "NJPC logo"
-        },
-        {title: "Associate Director of Student Transitions",
-            company: "Emerson College",
-            companyLink: "https://www.emerson.edu",
-            yearsWorked: "2020 - 2022",
-            responsibilities: [
-                "Managed onboarding experience for 1,300+ new undergraduate students each year with 82% satisfaction and a 9% increase in defined metrics year-over-year in 2021",
-                "Lead an onboarding committee with 25 cross-functional stakeholders while engaging subject matter experts",
-                "Directed job profile development, recruitment, selection, and hiring for onboarding team of 120+",
-                "Delivered and improved a 40-session onboarding team training curriculum covering DEI, teamwork, and CliftonStrengths with a 0.87% increase in participant performance year-over-year in 2021",
-                "Expanded DEI learning and development initiatives for 70+ employees to increase organization-wide key performance indicators",
-                "Facilitated Faces of Emerson, a DEI workshop with 30 participants during onboarding",
-                "Taught FS101: Emersion, a 20-person 1-credit onboarding class, with a 95.66% evaluation score",
-                "Leveraged Canvas LMS for student onboarding with 723 completions and 72% pass-rate to drive enrollment impact",
-                "Launched Wisr (1,334 active users) to create a digital onboarding cohort in 2020 in partnership with IT",
-            ],
-            logo: emerson,
-            altText: "emerson college logo"
-        },
-        {title: "Advisor for New Student Programs",
-            company: "Wellesley College",
-            companyLink: "https://www.wellesley.edu",
-            yearsWorked: "2017 - 2020",
-            responsibilities: [
-                "Developed and implemented onboarding programs for 700+ new undergraduate students with 83% satisfaction in 2019",
-                "Served on a committee with 6 cross-functional stakeholders to align recruitment and training processes for 200+",
-                "Led job profile development, sourcing, recruitment, selection, and hiring for an onboarding team of 70+",
-                "Led a committee on new student onboarding while engaging subject matter experts and key campus stakeholders",
-                "Collaborated with stakeholders to manage technology and social media platforms such as Workday, Guidebook, Drupal, Nelnet, Mailchimp, Instagram, Handshake, and Wellesley-specific applications",
-                "Evaluated and benchmarked programs and processes to align with institutional objectives and key results",
-            ],
-            logo: wellesley,
-            altText: "wellesley college logo"
-        },
-        {
-            title: "College Student Affairs Administration, M.Ed.",
-            company: "The University of Georgia",
-            companyLink: "https://www.uga.edu",
-            yearsWorked: "2015",
-            responsibilities: [
-                "Earned an M.Ed. in College Student Affairs Administration while working as a graduate assistant in the UGA LGBT Pride Center",
-                "Durable/soft skills: staff development, student counseling, training & development, team building, higher education, student development, diversity & inclusion, orientation programs, and student affairs"
-            ],
-            logo: uga,
-            altText: "uga logo"
-        },
-        {
-            title: "Computer Science (B.S.) and Theatre (B.A.)",
-            company: "The University of Maryland",
-            companyLink: "https://www.umd.edu",
-            yearsWorked: "2013",
-            responsibilities: [
-                "Earned dual degress in Computer Science (B.S.) and Theatre (B.A.)",
-                "Technical skills: Object-Oriented Programming, Java, C, Ruby, OCaml, Matlab, Data Structures, and Algorithms",
-                "Coursework: Object Oriented Programming I, Object Oriented Programming II, Introduction to Low-Level Programming Concepts, Discrete Structures, Organization of Programming Languages, Computer Organization, Algorithms ,Advanced Data Structures, Introduction to Human-Computer Interaction, Computer Systems Architecture, Image Processing (Computer Vision), Programming Language Technologies and Paradigms, Cryptology, Computer and Network Security"
-            ],
-            logo: umd,
-            altText: "umd logo"
+  const layout = () => {
+    const wrap = wrapRef.current
+    const svg = svgRef.current
+    if (!wrap || !svg) return
+    const wr = wrap.getBoundingClientRect()
+    const W = wr.width
+    const VW = document.documentElement.clientWidth
+    const ox = (VW - W) / 2
+    const mobile = window.innerWidth <= 860
+    const H = wrap.offsetHeight
+    svg.setAttribute('viewBox', `0 0 ${VW} ${H}`)
+    svg.style.height = `${H}px`
+
+    // the river bends toward each card, then runs on past the bottom of the section
+    const cx = (mobile ? 22 : W / 2) + ox
+    const pts = [{ x: cx, y: 0 }]
+    const stops = [...listRef.current.children]
+    stops.forEach((el, i) => {
+      const r = el.getBoundingClientRect()
+      const off = mobile ? (i % 2 ? 8 : -8) : el.classList.contains('left') ? 44 : el.classList.contains('right') ? -44 : 0
+      pts.push({ x: cx + off, y: r.top - wr.top + r.height / 2 })
+    })
+    pts.push({ x: cx, y: H })
+
+    const xAt = y => {
+      for (let i = 1; i < pts.length; i++) {
+        if (y <= pts[i].y) {
+          const a = pts[i - 1]
+          const b = pts[i]
+          const u = clamp((y - a.y) / Math.max(b.y - a.y, 1), 0, 1)
+          return a.x + (b.x - a.x) * (3 * u * u - 2 * u * u * u)
         }
-    ]
+      }
+      return pts[pts.length - 1].x
+    }
 
-    const tech = [
-        {
-            link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg",
-            altText: "javascript"
-        },
-        {
-            link: "https://nodejs.org",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg",
-            altText: "nodejs"
-        },
-        {
-            link: "https://expressjs.com",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg",
-            altText: "express"
-        },
-        {
-            link: "https://reactjs.org/",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg",
-            altText: "react"
-        },
-        {
-            link: "https://angular.io",
-            imageURL:"https://angular.io/assets/images/logos/angular/angular.svg",
-            altText: "angular"
-        },
-        {
-            link: "https://www.java.com",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg",
-            altText: "java"
-        },
-        {
-            link: "https://spring.io/",
-            imageURL:"https://www.vectorlogo.zone/logos/springio/springio-icon.svg",
-            altText: "spring"
-        },
-        {
-            link: "https://learn.microsoft.com/en-us/dotnet/csharp/",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg",
-            altText: "csharp"
-        },
-        {
-            link: "https://dotnet.microsoft.com/",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg",
-            altText: "dotnet"
-        },
-        {
-            link: "https://www.cprogramming.com/",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg",
-            altText: "c"
-        },
-        {
-            link: "https://www.ruby-lang.org/en/",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/ruby/ruby-original.svg",
-            altText: "ruby"
-        },
-        {
-            link: "https://www.python.org",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg",
-            altText: "python"
-        },
-        {
-            link: "https://golang.org",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg",
-            altText: "go"
-        },
-        {
-            link: "https://ocaml.org/",
-            imageURL:"https://avatars.githubusercontent.com/u/1841483?s=280&v=4",
-            altText: "ocaml"
-        },
-        {
-            link: "https://www.docker.com/",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg",
-            altText: "docker"
-        },
-        {
-            link: "https://www.mysql.com/",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg",
-            altText: "mysql"
-        },
-        {
-            link: "https://www.postgresql.org",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg",
-            altText: "postgresql"
-        },
-        {
-            link: "https://jestjs.io",
-            imageURL:"https://www.vectorlogo.zone/logos/jestjsio/jestjsio-icon.svg",
-            altText: "jest"
-        },
-        {
-            link: "https://git-scm.com/",
-            imageURL:"https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg",
-            altText: "git"
-        },
-        {
-            link: "https://www.w3.org/html/",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg",
-            altText: "html5"
-        },
-        {
-            link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg",
-            altText: "css3"
-        },
-        {
-            link: "https://getbootstrap.com",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg",
-            altText: "bootstrap"
-        },
-        {
-            link: "https://postman.com",
-            imageURL:"https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg",
-            altText: "postman"
-        },
-        {
-            link: "https://aws.amazon.com",
-            imageURL:"https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
-            altText: "aws"
-        },
-        {
-            link: "https://www.mathworks.com/",
-            imageURL:"https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png",
-            altText: "matlab"
-        },
-    ]
+    // woods on both banks and out into the margins on wide screens
+    const rnd = seeded(23)
+    let woods = ''
+    if (!mobile) {
+      for (let y = 60; y < H + 20; y += 52 + rnd() * 60) {
+        const px = xAt(y)
+        const spots = []
+        if (ox > 30) spots.push(rnd() * (ox - 16) + 8, VW - ox + 8 + rnd() * (ox - 16))
+        spots.push(px + (rnd() > 0.5 ? 1 : -1) * (70 + rnd() * 50))
+        if (rnd() > 0.5) spots.push(rnd() * (W * 0.9) + ox + W * 0.05)
+        spots.forEach(x => {
+          woods += tree(rnd, x, y, 0.8 + rnd() * 0.5)
+        })
+      }
+    }
 
-    return (
-    <>
-       <h1 className="title">experience</h1>
-       {jobs.map(job => {
-            return <section key={job.id} className="about-section job-section">
-                    <section className="logo-and-title">
-                        <article className="work-box">
-                            <img src={job.logo} alt={job.altText}/>
-                        </article>
-                        <aside>
-                            <p className="job-title">{job.title} @ <a href={job.companyLink}>{job.company}</a></p>
-                            <p className="years-worked">({job.yearsWorked})</p>
-                        </aside>
-                    </section>
-                    <article className="section-text work-text">
-                        <ul>
-                            {job.responsibilities.map(r => {
-                                return <li key={r.id}>{r}</li>
-                            })}
-                        </ul>
-                        </article>
-                </section>
-       })}
-        <h1 className="tech-stack-title">tech stack</h1>
-       <section className="tech-stack">
-            {tech.map(t => {
-                return <a key={t.id} href={t.link} target="_blank" rel="noreferrer"> <img src={t.imageURL} alt={t.altText}/></a>
-            })}
-        </section>
-        <section className="linked-in-section">
-            <p> Find out more about my experience on LinkedIn: <a href="https://www.linkedin.com/in/david-alan-todd" target="_blank" rel="noreferrer opener"><img src={linkedin} alt="linkedin logo"/></a></p>
-        </section>
-        
-    </>
-    )
+    // the river narrows as it climbs upstream
+    let river = ''
+    pts.slice(1).forEach((b, i) => {
+      const width = (mobile ? 22 : 54) * (1 - (i + 1) / pts.length) + (mobile ? 6 : 12)
+      river += `<path d="${curve(pts[i], b)}" stroke="var(--sea-1)" stroke-width="${width.toFixed(1)}" fill="none" stroke-linecap="round"/>`
+    })
+    const trail = pts
+      .slice(1)
+      .map((b, i) => curve(pts[i], b, mobile ? 18 : 34))
+      .join(' ')
+
+    svg.innerHTML =
+      `<defs><clipPath id="trail-clip"><rect class="trail-reveal" x="0" y="0" width="${VW}" height="0"/></clipPath></defs>` +
+      `<g>${woods}</g><g>${river}</g>` +
+      `<g clip-path="url(#trail-clip)"><path d="${trail}" stroke="var(--wood)" stroke-width="2.5" fill="none" stroke-dasharray="3 7" stroke-linecap="round"/></g>`
+    state.current.H = H
+  }
+
+  const update = () => {
+    const wrap = wrapRef.current
+    if (!wrap) return
+    const vh = window.innerHeight
+    const reduce = prefersReducedMotion()
+    const { H } = state.current
+    const p = reduce ? 1 : clamp((vh * 0.65 - wrap.getBoundingClientRect().top) / Math.max(H, 1), 0, 1)
+    const reveal = svgRef.current.querySelector('.trail-reveal')
+    if (reveal) reveal.setAttribute('height', (p * H).toFixed(0))
+
+    // each card settles in, and its bird calls, the first time it comes into view
+    listRef.current.querySelectorAll('.card').forEach(card => {
+      if (card.classList.contains('seen') || card.getBoundingClientRect().top > vh * 0.8) return
+      card.classList.add('seen')
+      if (!reduce) playCall(card.dataset.call)
+    })
+
+    // the turtles slide off the log as you get close, like they always do
+    const log = logRef.current
+    if (log && !state.current.plopped && log.getBoundingClientRect().top < vh * 0.6) {
+      state.current.plopped = true
+      log.querySelectorAll('.turtle').forEach((t, i) =>
+        setTimeout(() => {
+          replay(t, 'plopped')
+          replay(log.querySelector('.splash'), 'go')
+          playCall('plop')
+        }, i * 380),
+      )
+    }
+  }
+
+  useScrollScene(layout, update)
+
+  let side = 0
+  return (
+    <section className="page river" id="experience">
+      <div className="gutter">
+        <div className="inner trail-wrap" ref={wrapRef}>
+          <svg className="trail-svg" ref={svgRef} aria-hidden="true" />
+          <div className="page-head on-trail">
+            <Letters text="experience" className="title" fx="plop" instrument="pluck" />
+          </div>
+          <div className="trail-list" ref={listRef}>
+            {ROLES.map((role, i) => (role.log ? <TurtleLog key="log" logRef={logRef} /> : <RoleCard key={i} role={role} side={side++ % 2 ? 'right' : 'left'} />))}
+          </div>
+          <LifeList />
+          <div className="river-tail" aria-hidden="true" />
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default Experience

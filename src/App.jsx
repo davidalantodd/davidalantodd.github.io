@@ -4,7 +4,8 @@ import ArtDefs from './components/art/ArtDefs'
 import Header from './components/Header'
 import Home from './components/Home'
 import About from './components/About'
-import { CoastToMarsh } from './components/Transitions'
+import Experience from './components/Experience'
+import { CoastToMarsh, MarshToRiver } from './components/Transitions'
 import Letters from './components/Letters'
 import Footer from './components/Footer'
 
@@ -50,7 +51,8 @@ function App() {
         <Home />
         <CoastToMarsh />
         <About />
-        <ComingSoon id="experience" title="experience" fx="plop" instrument="pluck" />
+        <MarshToRiver />
+        <Experience />
         <ComingSoon id="projects" title="projects" fx="lift" instrument="chime" />
       </main>
       <Footer />

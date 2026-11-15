@@ -77,6 +77,42 @@ function ArtDefs() {
           <path d="M29.5 8 h5" stroke="#3a2e26" strokeWidth="1.2" />
         </symbol>
 
+        <symbol id="chickadee" viewBox="0 0 64 56" overflow="visible">
+          <path d="M8 40 L0 50 L14 44 Z" fill="#7d8790" />
+          <ellipse cx="30" cy="36" rx="20" ry="14" fill="#9aa3ab" />
+          <ellipse cx="32" cy="41" rx="15" ry="8" fill="#efe9df" />
+          <path d="M20 32 q10 -6 22 2 q-10 8 -22 -2Z" fill="#6c757d" />
+          <circle cx="46" cy="22" r="12" fill="#f6f6f4" />
+          <path d="M34 20 a12 12 0 0 1 24 0 Z" fill="#1b1b1b" />
+          <path d="M40 30 q6 6 12 -1 l-2 -4 q-5 2 -10 5Z" fill="#1b1b1b" />
+          <circle cx="50" cy="19" r="1.8" fill="#fff" />
+          <path d="M57 22 l7 1.5 -7 2Z" fill="#2a2a2a" />
+          <path d="M26 49 l-2 6 M34 49 l1 6" stroke="#2a2a2a" strokeWidth="1.6" strokeLinecap="round" />
+        </symbol>
+
+        <symbol id="turtle" viewBox="0 0 32 16" overflow="visible">
+          <path d="M3 13 a12 10 0 0 1 22 0Z" fill="#3e4a33" />
+          <path d="M3 13 h22" stroke="#d6582d" strokeWidth="1.6" />
+          <path d="M9 8 l3 -3 3 3 3 -3 3 3" stroke="#56653f" strokeWidth="1" fill="none" />
+          <ellipse cx="28" cy="11" rx="4" ry="2.5" fill="#3e4a33" />
+          <path d="M26 10 h4" stroke="#e8c54a" strokeWidth=".8" />
+          <circle cx="29.5" cy="10.5" r=".7" fill="#111" />
+        </symbol>
+
+        <symbol id="muskrat" viewBox="0 0 70 34" overflow="visible">
+          <path d="M0 26 Q16 20 30 28 Q50 34 70 26" stroke="#fff" strokeWidth="1.5" fill="none" opacity=".7" />
+          <path d="M8 22 Q2 24 -6 22" stroke="#4a3626" strokeWidth="3" fill="none" strokeLinecap="round" />
+          <ellipse cx="28" cy="20" rx="22" ry="9" fill="#6b4a32" />
+          <circle cx="50" cy="15" r="8" fill="#6b4a32" />
+          <circle cx="53" cy="13" r="1.3" fill="#111" />
+          <circle cx="46" cy="8" r="2.2" fill="#5a3d28" />
+          <ellipse cx="57" cy="17" rx="2.4" ry="1.6" fill="#2a1a10" />
+        </symbol>
+
+        <symbol id="check" viewBox="0 0 12 12">
+          <path d="M2 6.5 L5 9 L10 3" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </symbol>
+
         <symbol id="reeds-icon" viewBox="0 0 46 44">
           <g stroke="var(--reed)" strokeWidth="2.4" strokeLinecap="round">
             <path d="M10 44 V10" />

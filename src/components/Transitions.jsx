@@ -1,5 +1,7 @@
 import { useRef } from 'react'
-import { seeded, useScrollScene } from '../lib/motion'
+import { clamp, seeded, useScrollScene } from '../lib/motion'
+import { tree } from '../lib/draw'
+import { playCall } from '../sound/audio'
 
 // Short bands of scenery between habitats. Each one is drawn to the full width of the window
 // with a fixed random seed, so it looks the same on every visit.
@@ -34,7 +36,59 @@ function paintCoastToMarsh(w, h) {
   return g
 }
 
+// Where the river trail starts on the Experience section, so the channel lines up with it exactly.
+function riverStart() {
+  const wrap = document.querySelector('#experience .trail-wrap')
+  const mobile = window.innerWidth <= 860
+  if (!wrap) return { cx: document.documentElement.clientWidth / 2, half: mobile ? 13 : 30 }
+  const r = wrap.getBoundingClientRect()
+  return { cx: r.left + (mobile ? 22 : r.width / 2), half: mobile ? 13 : 30 }
+}
+
+// the open water of the marsh narrows into a river channel; reeds give way to trees, and a muskrat swims upstream
+function paintMarshToRiver(w, h, band) {
+  const rnd = seeded(53)
+  const { cx, half } = riverStart()
+  const halfAt = y => {
+    const u = clamp((y - h * 0.08) / (h * 0.92), 0, 1)
+    const e = 1 - Math.pow(1 - u, 2.2)
+    return (w / 2) * (1 - e) + half * e
+  }
+  const centerAt = y => w / 2 + (cx - w / 2) * clamp(y / h, 0, 1)
+  let left = ''
+  let right = ''
+  for (let y = 0; y <= h; y += h / 30) left += `${left ? 'L' : 'M'}${(centerAt(y) - halfAt(y)).toFixed(1)} ${y.toFixed(1)} `
+  for (let y = h; y >= 0; y -= h / 30) right += `L${(centerAt(y) + halfAt(y)).toFixed(1)} ${y.toFixed(1)} `
+  let g = `<rect width="${w}" height="${h}" fill="var(--bg)"/><path d="${left}${right}Z" fill="var(--sea-1)"/>`
+  for (let i = 0; i < 18; i++) {
+    const y = h * (0.05 + rnd() * 0.8)
+    const c = centerAt(y)
+    const hw = halfAt(y) * 0.7
+    g += `<path d="M${c - hw * rnd()} ${y} h${12 + rnd() * 40}" stroke="#fff" stroke-width="1.6" opacity=".5"/>`
+  }
+  for (let y = h * 0.1; y < h; y += 20 + rnd() * 28) {
+    for (const s of [-1, 1]) {
+      const bank = centerAt(y) + s * (halfAt(y) + 8 + rnd() * 30)
+      const x = bank + s * rnd() * (w * 0.4)
+      if (x < -20 || x > w + 20) continue
+      if (y < h * 0.5) {
+        const hh = 20 + rnd() * 40
+        g += `<path d="M${x} ${y} Q${x + 3} ${y - hh / 2} ${x + 2} ${y - hh}" stroke="var(--reed)" stroke-width="2.4" fill="none" stroke-linecap="round"/>`
+      } else if (rnd() > 0.25) {
+        g += tree(rnd, x, y, 0.7 + (y / h) * 0.6)
+      }
+    }
+  }
+  const musk = band.querySelector('.tr-animal')
+  if (musk) {
+    musk.style.left = `${centerAt(h * 0.62) - 35}px`
+    musk.style.top = `${h * 0.62 - 17}px`
+  }
+  return g
+}
+
 function Band({ paint, height, mobileHeight, children }) {
+  const bandRef = useRef(null)
   const svgRef = useRef(null)
   useScrollScene(() => {
     const svg = svgRef.current
@@ -43,11 +97,11 @@ function Band({ paint, height, mobileHeight, children }) {
     const h = window.innerWidth <= 860 ? mobileHeight : height
     svg.setAttribute('viewBox', `0 0 ${w} ${h}`)
     svg.setAttribute('height', h)
-    svg.innerHTML = paint(w, h)
+    svg.innerHTML = paint(w, h, bandRef.current)
   })
   return (
-    <div className="tr" aria-hidden="true">
-      <svg className="tr-art" ref={svgRef} />
+    <div className="tr" ref={bandRef}>
+      <svg className="tr-art" ref={svgRef} aria-hidden="true" />
       {children}
     </div>
   )
@@ -55,4 +109,15 @@ function Band({ paint, height, mobileHeight, children }) {
 
 export function CoastToMarsh() {
   return <Band paint={paintCoastToMarsh} height={260} mobileHeight={180} />
+}
+
+export function MarshToRiver() {
+  return (
+    <Band paint={paintMarshToRiver} height={360} mobileHeight={260}>
+      <svg className="tr-animal swim" viewBox="0 0 70 34" onClick={() => playCall('swim')}>
+        <title>muskrat</title>
+        <use href="#muskrat" />
+      </svg>
+    </Band>
+  )
 }
