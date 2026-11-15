@@ -138,7 +138,7 @@ function Signs({ onFocusStop }) {
             </span>
           </Row>
           <Row label="Hobbies">
-            <span>singing, birding, gardening, the gym, the beach, and travel, often with my husband and son</span>
+            <span>birding (hence the theme!), singing, gardening, the gym, the beach, and travel, often with my husband and son</span>
           </Row>
         </div>
       </article>

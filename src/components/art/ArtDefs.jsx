@@ -167,7 +167,7 @@ function ArtDefs() {
         </symbol>
 
         <symbol id="check" viewBox="0 0 12 12">
-          <path d="M2 6.5 L5 9 L10 3" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M2 6.5 L5 9 L10 3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>
 
         <symbol id="reeds-icon" viewBox="0 0 46 44">

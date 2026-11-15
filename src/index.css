@@ -399,16 +399,7 @@ img {
   z-index: 2;
 }
 
-.lede {
-  max-width: 38rem;
-  font-size: 1.08rem;
-  color: var(--muted);
-}
 
-.coming-soon {
-  min-height: 60vh;
-  border-top: 1px solid var(--line);
-}
 
 /* ============================================================
    Home: the coast
@@ -1369,13 +1360,14 @@ img {
 
 .ll.often .box,
 .box.on {
-  background: var(--blue);
   border-color: var(--blue);
+  color: var(--blue);
 }
 
 .box svg {
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
+  overflow: visible;
 }
 
 .river-tail {
@@ -1736,10 +1728,6 @@ img {
   color: var(--muted);
 }
 
-.spring-mark {
-  width: 70px;
-  height: 40px;
-}
 
 /* ============================================================
    Footer: the near shore of the pond
