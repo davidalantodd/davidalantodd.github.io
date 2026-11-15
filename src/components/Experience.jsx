@@ -44,7 +44,6 @@ function RoleCard({ role, side }) {
           ))}
         </div>
       )}
-      {role.highlight && <p>{role.highlight}</p>}
       <ul className="notes-list">
         {role.notes.map(note => (
           <li key={note}>{note}</li>

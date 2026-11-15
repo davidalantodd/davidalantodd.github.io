@@ -20,50 +20,71 @@ const Row = ({ label, children }) => (
   </div>
 )
 
-const Tags = ({ items, mono }) => (
-  <div className={mono ? 'tags mono' : 'tags'}>
+const Tags = ({ items }) => (
+  <div className="tags mono">
     {items.map(t => (
       <span key={t}>{t}</span>
     ))}
   </div>
 )
 
-// The sign layout from the mockup, filled with David's own wording from the original About page.
+// Every sign opens like a field-guide plate: the bird at that stop, the topic, and the bird's name.
+function SignHead({ index, label }) {
+  const bird = BIRDS[index]
+  return (
+    <header className="sign-head">
+      <svg className="sign-bird" viewBox={bird.viewBox} style={bird.colors} aria-hidden="true">
+        <use href={`#${bird.symbol}`} />
+      </svg>
+      <span className="kicker">{label}</span>
+      <em>· {bird.name}</em>
+    </header>
+  )
+}
+
+// Every sign has the same shape: field-guide header, heading, one short paragraph, labeled rows.
+// The words are David's own, from the original About page.
 function Signs({ onFocusStop }) {
   return (
     <>
       <article className="sign" onFocus={() => onFocusStop(0)}>
-        <div className="who">
-          <img src={headshot} alt="Headshot of David Todd" width="92" height="92" />
-          <div>
-            <b>David Todd</b>
-            <span>he/him · Washington, D.C.</span>
-          </div>
+        <SignHead index={0} label="Hello" />
+        <h3 className="with-photo">
+          <img src={headshot} alt="" width="48" height="48" />
+          David Todd
+        </h3>
+        <p>
+          I&apos;m a mission-driven software engineer who builds things that help people, combining engineering with my background in education.
+        </p>
+        <div className="field">
+          <Row label="Home">
+            <span>Maryland → Athens, GA → Boston, MA → Washington, D.C.</span>
+          </Row>
+          <Row label="Pronouns">
+            <span>he/him</span>
+          </Row>
+          <Row label="Works at">
+            <span>
+              <a href="https://www.saic.com/" target="_blank" rel="noreferrer">SAIC</a>, full-stack developer
+            </span>
+          </Row>
         </div>
-        <p>
-          Hello! My name is David and I&apos;m a mission-driven software engineer who likes to build things that help people. Currently a full-stack
-          software developer at <a href="https://www.saic.com/">SAIC</a>. I was born and raised in Maryland and I currently live in Washington, D.C.
-        </p>
-        <p>
-          I have always had an interest in the intersection of people and technology and am grateful to be able to combine my software engineering
-          skills with my experiences in education.
-        </p>
       </article>
 
       <article className="sign" onFocus={() => onFocusStop(1)}>
-        <span className="kicker">Software engineering</span>
-        <h3>Building software that solves meaningful problems</h3>
+        <SignHead index={1} label="Software engineering" />
+        <h3>Full stack, people first</h3>
         <p>
           Since transitioning to software engineering in 2022, I&apos;ve built full-stack apps for clients, mentored junior engineers, and led the
           integration of AI tools. My goal is to combine my technical skills and experiences in education to build software that solves meaningful
           problems.
         </p>
         <div className="field">
-          <Row label="Mostly using">
-            <Tags mono items={['Vue.js', 'C#/.NET', 'PostgreSQL', 'AWS', 'Docker']} />
+          <Row label="Currently using">
+            <Tags items={['Vue', 'C#/.NET', 'PostgreSQL', 'AWS', 'Docker', 'Node']} />
           </Row>
-          <Row label="Experience with">
-            <Tags mono items={['TypeScript', 'Node', 'React', 'Java/Spring', 'Python']} />
+          <Row label="Experienced in">
+            <Tags items={['TypeScript', 'React', 'Java/Spring', 'Python']} />
           </Row>
           <Row label="Interested in">
             <span>human-computer interaction, accessibility, and AI</span>
@@ -72,59 +93,52 @@ function Signs({ onFocusStop }) {
       </article>
 
       <article className="sign" onFocus={() => onFocusStop(2)}>
-        <span className="kicker">Education</span>
+        <SignHead index={2} label="Education" />
+        <h3>Seven years on campus</h3>
         <p>
           I spent the first 7 years of my career as a college administrator, and the skills I learned during that time (collaboration, leadership,
           and problem solving) have become my biggest strengths as a developer.
         </p>
         <div className="field">
           <Row label="Experienced in">
-            <Tags
-              items={[
-                'one-to-one coaching',
-                'workshop facilitation',
-                'teaching',
-                'training',
-                'student development',
-                'program management',
-                'data analysis & assessment',
-                'social justice/anti-oppression education',
-              ]}
-            />
+            <span>
+              one-to-one coaching, teaching &amp; workshop facilitation, program management, data analysis &amp; assessment, and anti-oppression education
+            </span>
           </Row>
           <Row label="Interested in">
-            <Tags
-              items={['DEI', 'inclusive education', 'teaching pedagogy', 'applied learning', 'flipped classrooms', 'radical candor', 'growth mindset', 'counseling', 'group dynamics']}
-            />
+            <span>
+              inclusive education &amp; DEI, applied learning, growth mindset, radical candor, and group dynamics
+            </span>
           </Row>
         </div>
       </article>
 
       <article className="sign" onFocus={() => onFocusStop(3)}>
-        <span className="kicker">Outside of work</span>
+        <SignHead index={3} label="Outside of work" />
         <h3>A few of my favorite things</h3>
         <div className="field">
           <Row label="Music">
-            <span>singing, and listening to music</span>
+            <span>Audrey Hobert, Demi Lovato, Tori Kelly</span>
           </Row>
-          <Row label="Reading">
+          <Row label="Musicals">
+            <span>Spring Awakening, Six, Songs for a New World</span>
+          </Row>
+          <Row label="TV">
+            <span>Abbott Elementary, RHOSLC, Bob&apos;s Burgers</span>
+          </Row>
+          <Row label="Books">
             <span>
-              a favorite: <a href="https://www.goodreads.com/book/show/49127718-anxious-people">Anxious People</a>
+              <a href="https://www.goodreads.com/book/show/49127718-anxious-people" target="_blank" rel="noreferrer">Anxious People</a>,{' '}
+              <a href="https://www.goodreads.com/book/show/58733693-remarkably-bright-creatures" target="_blank" rel="noreferrer">Remarkably Bright Creatures</a>
             </span>
           </Row>
-          <Row label="Playing">
+          <Row label="Game">
             <span>
-              Nintendo Switch (current favorite: <a href="https://zelda.nintendo.com/tears-of-the-kingdom">Legend of Zelda: Tears of the Kingdom</a>)
+              <a href="https://zelda.nintendo.com/tears-of-the-kingdom" target="_blank" rel="noreferrer">Zelda: Tears of the Kingdom</a>
             </span>
           </Row>
-          <Row label="Watching">
-            <span>some good TV (some favorites: Abbott Elementary, RHOSLC, and Bob&apos;s Burgers)</span>
-          </Row>
-          <Row label="Exploring">
-            <span>birding, exploring the city, gardening, going to the beach, and traveling, often with my partner and our son</span>
-          </Row>
-          <Row label="Also">
-            <span>going to the gym</span>
+          <Row label="Hobbies">
+            <span>singing, birding, gardening, the gym, the beach, and travel, often with my husband and son</span>
           </Row>
         </div>
       </article>
@@ -233,15 +247,23 @@ function About() {
     mid.querySelector('.h-intro').style.left = `${mobile ? 20 : VW * 0.1}px`
     // signs never scroll on their own; if one is taller than the space it has, it shrinks slightly to fit
     const room = mobile ? SH - 72 : SH * 0.79 - 60
+    // all four signs share one text size and one height, so the walk has an even rhythm
     signs.forEach((s, i) => {
       s.style.left = `${stopX[i] - signW / 2}px`
       s.style.width = `${signW}px`
       s.style.removeProperty('--fit')
-      let fit = 1
-      for (let pass = 0; pass < 3 && s.offsetHeight > room; pass++) {
-        fit *= room / s.offsetHeight
-        s.style.setProperty('--fit', fit.toFixed(3))
-      }
+      s.style.minHeight = ''
+    })
+    let fit = 1
+    for (let pass = 0; pass < 3; pass++) {
+      const tallest = Math.max(...signs.map(s => s.offsetHeight))
+      if (tallest <= room) break
+      fit *= room / tallest
+      signs.forEach(s => s.style.setProperty('--fit', fit.toFixed(3)))
+    }
+    const tallest = Math.max(...signs.map(s => s.offsetHeight))
+    signs.forEach(s => {
+      s.style.minHeight = `${tallest}px`
     })
 
     // each bird stands somewhere it would really be: on the water, the boardwalk, a cattail, the reeds

@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import Letters from './Letters'
+import { GitHubIcon, LaunchIcon } from './Icons'
 import chickadeeShot from '../assets/chickadee-landing-960.jpg'
 import musicalShot from '../assets/musical-app-960.jpg'
 import adventShot from '../assets/adventofcode-960.jpg'
@@ -12,7 +13,6 @@ const PROJECTS = [
     name: 'Chickadee',
     animal: 'chickadee',
     shot: chickadeeShot,
-    alt: 'Chickadee app landing page screenshot',
     description: 'A web app to browse recent bird sightings worldwide, as a list or on a map, with filters by place and species, species photos, and shareable links.',
     stack: ['React', 'React Router', 'Leaflet', 'Bootstrap', 'Netlify Functions', 'eBird API'],
     source: 'https://github.com/davidalantodd/chickadee',
@@ -22,7 +22,6 @@ const PROJECTS = [
     name: 'Musical App',
     animal: 'frog',
     shot: musicalShot,
-    alt: 'Musical app screenshot',
     description: 'A full-stack app to track musical theatre productions.',
     stack: ['C#/.NET', 'Angular', 'TypeScript', 'SCSS', 'PostgreSQL'],
     source: 'https://github.com/davidalantodd/musical-app',
@@ -31,7 +30,6 @@ const PROJECTS = [
     name: 'Advent of Code',
     animal: 'shimmer',
     shot: adventShot,
-    alt: 'Advent of Code screenshot',
     description: 'Solutions to Advent of Code challenge problems.',
     stack: ['Ruby', 'Python', 'JavaScript', 'C', 'Go', 'PHP'],
     source: 'https://github.com/davidalantodd/advent-of-code',
@@ -86,9 +84,11 @@ const POND = `
 function ProjectCard({ project, index }) {
   return (
     <article className="proj" data-index={index}>
-      <div className="shot">
-        <img src={project.shot} alt={project.alt} loading="lazy" />
-      </div>
+      <div className="proj-card">
+      {/* the screenshot opens the live app, or the code when there isn't one; the icons below are the keyboard-friendly links */}
+      <a className="shot" href={project.live || project.source} target="_blank" rel="noreferrer" tabIndex={-1} aria-hidden="true">
+        <img src={project.shot} alt="" loading="lazy" />
+      </a>
       <h3>{project.name}</h3>
       <p>{project.description}</p>
       <div className="tags mono">
@@ -97,14 +97,15 @@ function ProjectCard({ project, index }) {
         ))}
       </div>
       <div className="proj-links">
-        <a href={project.source} target="_blank" rel="noreferrer">
-          Source code →
+        <a href={project.source} target="_blank" rel="noreferrer" aria-label={`${project.name} source code on GitHub`} data-name="source code" data-label-pos="below">
+          <GitHubIcon />
         </a>
         {project.live && (
-          <a href={project.live} target="_blank" rel="noreferrer">
-            Deployed app →
+          <a href={project.live} target="_blank" rel="noreferrer" aria-label={`Open the ${project.name} app`} data-name="deployed app" data-label-pos="below">
+            <LaunchIcon />
           </a>
         )}
+      </div>
       </div>
     </article>
   )

@@ -8,7 +8,7 @@ import umd from '../assets/logos/umd.jpg'
 
 // Each stop on the river trail, newest first, since the walk goes upstream from today toward where it started.
 // `bird` is the bird spotted at that bend, usually the official bird of the place David was working.
-// `highlight` and `stats` are the quick read; `notes` are the full original bullets.
+// `stats` are the quick read; `notes` are the full original bullets.
 
 export const ROLES = [
   {
@@ -18,7 +18,6 @@ export const ROLES = [
     logo: saic,
     url: 'https://www.saic.com/',
     bird: { name: 'wood thrush', note: "D.C.'s official bird", call: 'thrush', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#a0703c', '--belly': '#f4ece0', '--head': '#b07a40', '--wing': '#8a5a2c' } },
-    highlight: 'Building features for an application with C#/.NET, Vue.js and PostgreSQL, following agile practices.',
     notes: [
       'Design, develop, and implement features for an application built with C#/.NET, Vue.js, and PostgreSQL, following agile development practices.',
       'Update software design documentation and provide support for solutions deployed to production.',
@@ -31,7 +30,6 @@ export const ROLES = [
     logo: njpc,
     url: 'https://newjerseyparentscaucus.org/',
     bird: { name: 'American goldfinch', note: "New Jersey's state bird", call: 'chip', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#f2d02b', '--belly': '#f7e27a', '--wing': '#222', '--cap': '#222', '--beak': '#e8a23c' } },
-    highlight: 'Helped build a central hub of family resources, including mental health evaluation, family intake and referrals, using React, Node and MongoDB.',
     notes: [
       'Decrease database maintenance task time and improve user experience by implementing a bulk delete feature for admin users to remove resources with confirmation modal and snack bar components.',
       'Improve data quality by adding a 409 HTTP response in back-end auth microservice and alerting users in UI when an attempt is made to register an email that already exists in the database during signup.',
@@ -50,7 +48,7 @@ export const ROLES = [
       ['165+', 'technical workshops taught'],
       ['77', 'apprentices mentored'],
       ['23 → 95', 'apprentice NPS'],
-      ['7 → 69', 'manager NPS'],
+      ['4.84/5', 'AI coaching session satisfaction'],
     ],
     notes: [
       "Developed API endpoints secured with data encryption, basic auth, JWTs, and OAuth using C#/.NET to contribute to back-end curriculum codebase and expand tech stack coverage by 20%.",
@@ -138,7 +136,6 @@ export const ROLES = [
     logo: uga,
     url: 'https://www.uga.edu',
     bird: { name: 'brown thrasher', note: "Georgia's state bird", call: 'trill', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#a5542b', '--belly': '#f0e0c0', '--head': '#a5542b', '--wing': '#8a4422', '--tail': '#8a4422' } },
-    highlight: 'Earned an M.Ed. while working as a graduate assistant in the UGA LGBT Pride Center.',
     notes: [
       'Earned an M.Ed. in College Student Affairs Administration while working as a graduate assistant in the UGA LGBT Pride Center.',
       'Durable/soft skills: staff development, student counseling, training & development, team building, higher education, student development, diversity & inclusion, orientation programs, and student affairs.',
@@ -151,7 +148,6 @@ export const ROLES = [
     logo: umd,
     url: 'https://www.umd.edu',
     bird: { name: 'Baltimore oriole', note: "Maryland's state bird", call: 'thrush', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#f08a24', '--belly': '#f6a24a', '--head': '#1f1f1f', '--wing': '#1f1f1f', '--tail': '#1f1f1f' } },
-    highlight: 'Dual degrees in Computer Science and Theatre.',
     notes: [
       'Earned dual degrees in Computer Science (B.S.) and Theatre (B.A.).',
       'Technical skills: Object-Oriented Programming, Java, C, Ruby, OCaml, Matlab, Data Structures, and Algorithms.',

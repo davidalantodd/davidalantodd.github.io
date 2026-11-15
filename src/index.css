@@ -796,6 +796,49 @@ img {
   opacity: 1;
 }
 
+/* the field-guide header every sign opens with: the stop's bird, the topic, and the bird's name */
+.sign-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.55rem;
+  padding-bottom: calc(0.55rem * var(--fit, 1));
+  border-bottom: 1px dashed var(--line);
+}
+
+.sign-bird {
+  width: calc(40px * var(--fit, 1));
+  height: calc(32px * var(--fit, 1));
+  flex: none;
+  overflow: visible;
+}
+
+.sign-head em {
+  font-size: calc(0.88rem * var(--fit, 1));
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sign-head .kicker {
+  white-space: nowrap;
+}
+
+.sign h3.with-photo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.with-photo img {
+  width: calc(48px * var(--fit, 1));
+  height: calc(48px * var(--fit, 1));
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  border: 2px solid var(--card);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
 .sign h3 {
   font-size: calc(clamp(1.4rem, 2.6vw, 1.9rem) * var(--fit, 1));
   font-weight: 300;
@@ -1585,19 +1628,39 @@ img {
   }
 }
 
+/* each project gets most of a screen so the pond view has time to settle on its animal */
 .proj {
-  min-height: 82vh;
+  min-height: 66vh;
   display: grid;
   align-content: center;
+  padding-block: 1.5rem;
+}
+
+.proj-card {
+  display: grid;
   gap: 0.8rem;
-  padding-block: 2rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  padding: 0.9rem 0.9rem 1.2rem;
+  transition: box-shadow 0.3s;
+}
+
+.proj-card:hover {
+  box-shadow: 0 18px 30px -22px rgba(23, 103, 179, 0.6);
+}
+
+.proj-card > :not(.shot) {
+  margin-inline: 0.35rem;
 }
 
 .proj .shot {
-  border-radius: 0.85rem;
+  display: block;
+  border-radius: 0.75rem;
   overflow: hidden;
   border: 1px solid var(--line);
   aspect-ratio: 16 / 10;
+  cursor: pointer;
 }
 
 .proj .shot img {
@@ -1620,17 +1683,30 @@ img {
 
 .proj-links {
   display: flex;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-  font-weight: 400;
+  gap: 0.6rem;
+  align-items: center;
 }
 
 .proj-links a {
-  color: var(--blue);
+  display: inline-flex;
+  color: var(--fg);
+  padding: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  transition: color 0.25s, border-color 0.25s, transform 0.25s;
 }
 
-.proj-links a:hover {
-  text-decoration: underline;
+.proj-links a:hover,
+.proj-links a:focus-visible {
+  color: var(--blue);
+  border-color: var(--blue);
+  transform: translateY(-2px);
+}
+
+.proj-links .icon {
+  width: 24px;
+  height: 24px;
 }
 
 /* the quote gets most of a screen to itself, so it reads as the ending */
@@ -1747,7 +1823,7 @@ img {
   transform: translateY(-2px);
 }
 
-.socials .icon {
+.icon {
   width: 26px;
   height: 26px;
   fill: none;
@@ -1757,11 +1833,11 @@ img {
   stroke-linejoin: round;
 }
 
-.socials .icon .thin {
+.icon .thin {
   stroke-width: 0.95;
 }
 
-.socials .icon .dot {
+.icon .dot {
   fill: currentColor;
   stroke: none;
 }
@@ -1789,6 +1865,12 @@ img {
   .who img {
     width: calc(64px * var(--fit, 1));
     height: calc(64px * var(--fit, 1));
+  }
+  /* the signs fill the sky on phones, so the osprey flies low over the water instead */
+  .osprey {
+    top: auto;
+    bottom: 64px;
+    left: 6%;
   }
 }
 
@@ -1824,7 +1906,7 @@ img {
   }
 
   .proj {
-    min-height: 72vh;
+    min-height: 60vh;
   }
 }
 
