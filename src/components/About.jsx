@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import Letters from './Letters'
+import BirdId from './BirdId'
 import headshot from '../assets/headshot-400.jpg'
 import { playCall } from '../sound/audio'
 import { clamp, replay, seeded, useScrollScene } from '../lib/motion'
@@ -230,9 +231,17 @@ function About() {
     farRef.current.querySelector('.h-sun').style.left = `${VW * 0.62}px`
     mid.querySelector('.boardwalk').style.width = `${midW - (mobile ? VW * 0.2 : VW * 0.25)}px`
     mid.querySelector('.h-intro').style.left = `${mobile ? 20 : VW * 0.1}px`
+    // signs never scroll on their own; if one is taller than the space it has, it shrinks slightly to fit
+    const room = mobile ? SH - 72 : SH * 0.79 - 60
     signs.forEach((s, i) => {
       s.style.left = `${stopX[i] - signW / 2}px`
       s.style.width = `${signW}px`
+      s.style.removeProperty('--fit')
+      let fit = 1
+      for (let pass = 0; pass < 3 && s.offsetHeight > room; pass++) {
+        fit *= room / s.offsetHeight
+        s.style.setProperty('--fit', fit.toFixed(3))
+      }
     })
 
     // each bird stands somewhere it would really be: on the water, the boardwalk, a cattail, the reeds
@@ -246,7 +255,8 @@ function About() {
     birds.forEach((b, i) => {
       const s = mobile ? { ...spots[i], w: spots[i].w * 0.6, h: spots[i].h * 0.6 } : spots[i]
       const x = mobile ? stopX[i] + signW / 2 - s.w - 6 : stopX[i] + s.dx
-      const y = mobile ? 8 : clamp(s.y, 10, SH - s.h - 6)
+      // on phones the signs fill most of the height, so the birds wait on the water below them
+      const y = mobile ? SH - s.h - 58 : clamp(s.y, 10, SH - s.h - 6)
       Object.assign(b.style, { left: `${x}px`, top: `${y}px`, width: `${s.w}px`, height: `${s.h}px` })
     })
 
@@ -332,25 +342,16 @@ function About() {
             </div>
             <Signs onFocusStop={focusStop} />
             {BIRDS.map(b => (
-              <svg key={b.name} className="h-bird" viewBox={b.viewBox} style={b.colors} onClick={() => playCall(b.call)}>
-                <title>{b.name}</title>
-                <use href={`#${b.symbol}`} />
-              </svg>
+              <BirdId key={b.name} name={b.name} className="h-bird" symbol={b.symbol} viewBox={b.viewBox} colors={b.colors} call={b.call} />
             ))}
-            <svg className="h-egret" viewBox="0 0 40 60" style={{ '--body': '#f4f4f0', '--crest': 'transparent', '--beak': '#e3b23c' }} onClick={() => playCall('croak')}>
-              <title>great egret</title>
-              <use href="#heron" />
-            </svg>
+            <BirdId name="great egret" className="h-egret" symbol="heron" viewBox="0 0 40 60" colors={{ '--body': '#f4f4f0', '--crest': 'transparent', '--beak': '#e3b23c' }} call="croak" />
           </div>
 
-          <div className="layer" ref={nearRef} aria-hidden="true">
+          <div className="layer near-layer" ref={nearRef} aria-hidden="true">
             <svg className="paint near" />
           </div>
 
-          <svg className="osprey" viewBox="0 0 64 26" onClick={() => playCall('osprey')}>
-            <title>osprey</title>
-            <use href="#osprey" />
-          </svg>
+          <BirdId name="osprey" className="osprey" symbol="osprey" viewBox="0 0 64 26" call="osprey" />
 
           <div className="h-hud" aria-hidden="true">
             {BIRDS.map(b => (

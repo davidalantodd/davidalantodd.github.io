@@ -22,13 +22,18 @@ function RoleCard({ role, side }) {
   return (
     <article className={`card ${side}`} data-call={role.bird.call}>
       <SpottedBird bird={role.bird} />
-      <span className="yrs">{role.years}</span>
-      <h3>
-        {role.title}{' '}
-        <a href={role.url} target="_blank" rel="noreferrer">
-          @ {role.org}
-        </a>
-      </h3>
+      <div className="role-head">
+        <img className="logo" src={role.logo} alt={`${role.org} logo`} width="44" height="44" loading="lazy" />
+        <div>
+          <span className="yrs">{role.years}</span>
+          <h3>
+            {role.title}{' '}
+            <a href={role.url} target="_blank" rel="noreferrer">
+              @ {role.org}
+            </a>
+          </h3>
+        </div>
+      </div>
       {role.stats && (
         <div className="stats">
           {role.stats.map(([big, label]) => (
@@ -63,13 +68,13 @@ function TurtleLog({ logRef }) {
         <path d="M40 66 L380 60" stroke="var(--wood-dark)" strokeWidth="18" strokeLinecap="round" />
         <path d="M40 60 L380 54" stroke="var(--wood)" strokeWidth="6" strokeLinecap="round" opacity=".7" />
         <path d="M350 58 l20 -26" stroke="var(--wood-dark)" strokeWidth="5" strokeLinecap="round" />
-        <g className="turtle" onClick={plop}>
+        <g className="turtle" data-name="eastern painted turtle" onClick={plop}>
           <use href="#turtle" x="110" y="36" width="52" height="26" />
         </g>
-        <g className="turtle" onClick={plop}>
+        <g className="turtle" data-name="eastern painted turtle" onClick={plop}>
           <use href="#turtle" x="180" y="32" width="60" height="30" />
         </g>
-        <g className="turtle" onClick={plop}>
+        <g className="turtle" data-name="eastern painted turtle" onClick={plop}>
           <use href="#turtle" x="262" y="32" width="46" height="23" />
         </g>
       </svg>

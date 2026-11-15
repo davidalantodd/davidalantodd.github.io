@@ -109,6 +109,63 @@ function ArtDefs() {
           <ellipse cx="57" cy="17" rx="2.4" ry="1.6" fill="#2a1a10" />
         </symbol>
 
+        <symbol id="frog" viewBox="0 0 24 16" overflow="visible">
+          <ellipse cx="12" cy="11" rx="10" ry="5" fill="#5cb85c" />
+          <circle cx="7" cy="5" r="3.5" fill="#5cb85c" />
+          <circle cx="17" cy="5" r="3.5" fill="#5cb85c" />
+          <circle cx="7" cy="5" r="1.8" fill="#e3c04a" />
+          <circle cx="17" cy="5" r="1.8" fill="#e3c04a" />
+          <circle cx="7" cy="5" r=".8" fill="#111" />
+          <circle cx="17" cy="5" r=".8" fill="#111" />
+        </symbol>
+
+        <symbol id="dragonfly" viewBox="0 0 50 20" overflow="visible">
+          <path d="M6 10 H48" stroke="#1f6fb0" strokeWidth="3" strokeLinecap="round" />
+          <circle cx="4" cy="10" r="3.6" fill="#1f6fb0" />
+          <g fill="#bfe9f7" opacity=".85" stroke="#7fb8d6" strokeWidth=".5">
+            <ellipse cx="15" cy="3" rx="9" ry="3" transform="rotate(-14 15 3)" />
+            <ellipse cx="15" cy="17" rx="9" ry="3" transform="rotate(14 15 17)" />
+            <ellipse cx="24" cy="4" rx="9" ry="2.6" transform="rotate(-6 24 4)" />
+            <ellipse cx="24" cy="16" rx="9" ry="2.6" transform="rotate(6 24 16)" />
+          </g>
+        </symbol>
+
+        {/* a northern flicker clinging to a tree trunk */}
+        <symbol id="flicker" viewBox="0 0 26 46" overflow="visible">
+          <path d="M11 34 L8 46 L15 46 L14 34Z" fill="#2a2420" />
+          <ellipse cx="12" cy="24" rx="7.5" ry="13" fill="#c9a77c" />
+          <g stroke="#2a2420" strokeWidth="1.1" opacity=".7">
+            <path d="M6 18 h4 M5 22 h4 M5 26 h4 M6 30 h4" />
+          </g>
+          <ellipse cx="15" cy="25" rx="4.5" ry="10" fill="#f1e4cc" />
+          <g fill="#2a2420">
+            <circle cx="15" cy="23" r=".9" />
+            <circle cx="17" cy="26" r=".9" />
+            <circle cx="14" cy="28" r=".9" />
+            <circle cx="16" cy="31" r=".9" />
+          </g>
+          <path d="M10 15 Q15 18 19 14 L19 17 Q15 21 10 18Z" fill="#2a2420" />
+          <circle cx="14" cy="8" r="6" fill="#b5b0a6" />
+          <ellipse cx="16" cy="10" rx="4" ry="3" fill="#e9d2ab" />
+          <path d="M8.5 7 q-1.5 2 0 4" stroke="#d8323c" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+          <path d="M15 11 l4 1.6" stroke="#2a2420" strokeWidth="1.4" strokeLinecap="round" />
+          <circle cx="16" cy="7" r="1" fill="#111" />
+          <path d="M19 7.5 L26 8.5 L19 9.6Z" fill="#3a3430" />
+        </symbol>
+
+        <symbol id="kingfisher" viewBox="0 0 30 26" overflow="visible">
+          <path d="M6 16 L1 23 L8 19Z" fill="#4f7397" />
+          <ellipse cx="13" cy="15" rx="8" ry="6" fill="#5a7fa3" />
+          <ellipse cx="14" cy="18" rx="5.5" ry="3" fill="#fff" />
+          <path d="M8 17 q6 3 12 0" stroke="#5a7fa3" strokeWidth="2" fill="none" />
+          <circle cx="20" cy="9" r="5.5" fill="#5a7fa3" />
+          <path d="M15 7 L13 2 L18 5 L19 1 L22 5Z" fill="#5a7fa3" />
+          <path d="M17 12 q3 2 6 0" stroke="#fff" strokeWidth="2" fill="none" />
+          <circle cx="21.5" cy="8" r="1" fill="#111" />
+          <path d="M24 8.5 L30 10 L24 11Z" fill="#222" />
+          <path d="M11 21 v4 M15 21 v4" stroke="#333" strokeWidth="1" strokeLinecap="round" />
+        </symbol>
+
         <symbol id="check" viewBox="0 0 12 12">
           <path d="M2 6.5 L5 9 L10 3" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>

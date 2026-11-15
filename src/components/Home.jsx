@@ -1,5 +1,6 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Letters from './Letters'
+import BirdId from './BirdId'
 import { playCall } from '../sound/audio'
 import { clamp, prefersReducedMotion, useScrollScene } from '../lib/motion'
 
@@ -17,13 +18,30 @@ const WAVES = [
 ]
 
 function Home() {
-  const seaRef = useRef(null)
   const beachRef = useRef(null)
   const walkRef = useRef(null)
   const piperRef = useRef(null)
   const tracksRef = useRef(null)
   const inlandRef = useRef(null)
   const path = useRef({ pts: [], segs: [], total: 0, prints: [], stopT: [], last: 99 })
+
+  // a gentle nudge to scroll, only if the visitor sits on the first screen for a few seconds without moving
+  const [showHint, setShowHint] = useState(false)
+  useEffect(() => {
+    if (window.scrollY > 40) return
+    const timer = setTimeout(() => setShowHint(true), 4000)
+    const onScroll = () => {
+      if (window.scrollY < 40) return
+      clearTimeout(timer)
+      setShowHint(false)
+      window.removeEventListener('scroll', onScroll)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
 
   // Map the walk: from the top of the beach, past each line, to the marsh link.
   // Footprints are laid along that path and appear as the sandpiper passes them.
@@ -94,7 +112,7 @@ function Home() {
     const reduce = prefersReducedMotion()
     const r = beachRef.current.getBoundingClientRect()
     // the walk starts only once the beach has scrolled well into view, so the first screen stays clean
-    const progress = reduce ? 1 : clamp((window.innerHeight * 0.5 - r.top) / (r.height * 0.7), 0, 1)
+    const progress = reduce ? 1 : clamp((window.innerHeight * 0.55 - r.top) / (r.height * 0.95), 0, 1)
     const L = progress * p.total
     const pt = pointAt(L)
     const hop = reduce ? 0 : Math.abs(Math.sin(L / 9)) * 3
@@ -112,47 +130,27 @@ function Home() {
 
   useScrollScene(layout, update)
 
-  const ripple = e => {
-    const sea = seaRef.current
-    const r = sea.getBoundingClientRect()
-    const dot = document.createElement('span')
-    dot.className = 'ripple'
-    dot.style.left = `${e.clientX - r.left}px`
-    dot.style.top = `${e.clientY - r.top}px`
-    sea.appendChild(dot)
-    setTimeout(() => dot.remove(), 1200)
-    playCall('hum')
-  }
-
   return (
     <section className="page" id="home">
       <div className="gutter">
         <div className="inner hero">
           <Letters text="david alan todd" className="name" fx="bob" instrument="bell" />
           <h2 className="subtitle">mission-driven software engineer</h2>
-          <p className="scroll-hint">scroll to follow the sandpiper</p>
+          <p className={showHint ? 'scroll-hint show' : 'scroll-hint'} aria-hidden={!showHint}>
+            scroll to follow the sandpiper ↓
+          </p>
         </div>
       </div>
 
-      <div className="sea" ref={seaRef} onClick={ripple} aria-hidden="true">
-        <div className="sun" />
+      <div className="sea">
+        <div className="sun" aria-hidden="true" />
         {WAVES.slice(0, 2).map(w => (
-          <svg key={w.className} className={`wave ${w.className}`} viewBox="0 0 1600 150" preserveAspectRatio="none">
+          <svg key={w.className} className={`wave ${w.className}`} viewBox="0 0 1600 150" preserveAspectRatio="none" aria-hidden="true">
             <path d={w.d} fill={w.fill} />
           </svg>
         ))}
-        <svg
-          className="scoter"
-          viewBox="0 0 44 24"
-          onClick={e => {
-            e.stopPropagation()
-            playCall('whistle')
-          }}
-        >
-          <title>surf scoter</title>
-          <use href="#scoter" />
-        </svg>
-        <svg className={`wave ${WAVES[2].className}`} viewBox="0 0 1600 150" preserveAspectRatio="none">
+        <BirdId name="surf scoter" className="scoter" symbol="scoter" viewBox="0 0 44 24" call="whistle" />
+        <svg className={`wave ${WAVES[2].className}`} viewBox="0 0 1600 150" preserveAspectRatio="none" aria-hidden="true">
           <path d={WAVES[2].d} fill={WAVES[2].fill} />
         </svg>
       </div>
@@ -174,7 +172,7 @@ function Home() {
           </div>
           <div className="marsh-edge">
             <a className="onward" href="#about" ref={inlandRef}>
-              <span>Keep walking into the marsh ↓</span>
+              <span>Into the marsh ↓</span>
               <svg aria-hidden="true">
                 <use href="#reeds-icon" />
               </svg>

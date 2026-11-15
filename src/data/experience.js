@@ -1,3 +1,11 @@
+import saic from '../assets/logos/saic.png'
+import njpc from '../assets/logos/njpc.png'
+import multiverse from '../assets/logos/multiverse.png'
+import emerson from '../assets/logos/emerson.jpg'
+import wellesley from '../assets/logos/wellesley.jpg'
+import uga from '../assets/logos/uga.jpg'
+import umd from '../assets/logos/umd.jpg'
+
 // Each stop on the river trail, newest first, since the walk goes upstream from today toward where it started.
 // `bird` is the bird spotted at that bend, usually the official bird of the place David was working.
 // `highlight` and `stats` are the quick read; `notes` are the full original bullets.
@@ -7,6 +15,7 @@ export const ROLES = [
     years: '2025 – present',
     title: 'Full Stack Developer',
     org: 'SAIC',
+    logo: saic,
     url: 'https://www.saic.com/',
     bird: { name: 'wood thrush', note: "D.C.'s official bird", call: 'thrush', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#a0703c', '--belly': '#f4ece0', '--head': '#b07a40', '--wing': '#8a5a2c' } },
     highlight: 'Building features for an application with C#/.NET, Vue.js and PostgreSQL, following agile practices.',
@@ -19,6 +28,7 @@ export const ROLES = [
     years: '2024',
     title: 'Volunteer Software Engineer',
     org: "New Jersey Parents' Caucus",
+    logo: njpc,
     url: 'https://newjerseyparentscaucus.org/',
     bird: { name: 'American goldfinch', note: "New Jersey's state bird", call: 'chip', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#f2d02b', '--belly': '#f7e27a', '--wing': '#222', '--cap': '#222', '--beak': '#e8a23c' } },
     highlight: 'Helped build a central hub of family resources, including mental health evaluation, family intake and referrals, using React, Node and MongoDB.',
@@ -33,6 +43,7 @@ export const ROLES = [
     years: '2022 – 2025',
     title: 'Software Engineering Instructor',
     org: 'Multiverse',
+    logo: multiverse,
     url: 'https://www.multiverse.io',
     bird: { name: 'great blue heron', note: 'the patient teacher of the river', call: 'croak', symbol: 'heron', viewBox: '0 0 40 60', colors: {} },
     stats: [
@@ -42,13 +53,15 @@ export const ROLES = [
       ['7 → 69', 'manager NPS'],
     ],
     notes: [
-      'Teach 165+ technical workshops over two years to software engineering apprentices to increase their knowledge of front-end, back-end, and deployment technologies, including Node.js, Express, React, OOP, RESTful APIs, Databases, Data Security, TDD, UI Development, Docker, CI/CD, and Cloud.',
-      'Build RESTful API endpoints secured with data encryption, basic auth, JWTs, and OAuth using C#/.NET to serve as alternative learning materials for back-end development. Expand apprenticeship curriculum tech stack coverage by 20% to enable additional apprentices to utilize curriculum materials.',
-      'Design and deliver a series of data structures and algorithms coding challenges (JavaScript/Node) to strengthen fundamental programming concepts in junior software engineers. Boost overall Multiverse product credibility by enhancing personal coach expertise score from 5.4 to 5.8/6.',
-      'Mentor 77 software engineering apprentices across 11 partner companies (e.g. Cisco, AMEX, Verizon, HP) and 5 cohorts over two years. Elevated end-user experience, increasing apprentice NPS from 23 to 95/100 by providing personalized guidance through 107+ code reviews (in 7 programming languages).',
-      'Facilitate 76+ progress reviews and 166+ one-to-one coaching meetings over two years, aligning with apprentices and managers on objectives to create business impact. Drive significant improvement in client satisfaction, increasing manager ROI score from 4.8 to 5.4/6 and manager NPS from 7 to 69/100.',
-      'Reduce time of project feedback and progress review workflows by 50% by collaborating with other teammates to develop internal automation tools using Coda.',
-      'Improve technical credibility and teaching pedagogy skills by engaging in continuous technical upskilling opportunities, such as participating in Advent of Code and self-study projects.',
+      "Developed API endpoints secured with data encryption, basic auth, JWTs, and OAuth using C#/.NET to contribute to back-end curriculum codebase and expand tech stack coverage by 20%.",
+      "Built Cloudflare-hosted MCP server using TypeScript, OAuth GitHub integration, and Supabase backend to surface AI tool adoption productivity gains and impact stories within a user’s IDE.",
+      "Taught 165+ technical workshops to junior software engineers covering JavaScript/Node, React, OOP, RESTful APIs, Databases, Security, TDD, UI, Docker, CI/CD, and Cloud.",
+      "Designed DSA coding challenge series to strengthen fundamental programming concepts for junior engineers to enhance client ROI score from 4.8 to 5.4/6 and boost Multiverse product credibility.",
+      "Facilitated 60+ coaching sessions to enable Multiverse platform users to adopt AI tools such as GitHub Copilot and Microsoft Copilot, earning a 4.84/5 for session satisfaction and a 4.71/5 coaching score.",
+      "Mentored 77 software engineering apprentices across 11 partner companies (e.g. Cisco, AMEX, Verizon, HP) by providing personalized guidance through 107+ code reviews to increase NPS from 23 to 95/100.",
+      "Facilitated 76+ progress reviews and 166+ coaching meetings, aligning with apprentices and managers on impact objectives. Drive improvement in client satisfaction, increasing manager NPS from 7 to 69/100.",
+      "Reduced time of project feedback and progress review workflows by 50% by collaborating with other teammates to develop internal automation tools using Coda.",
+      "Improved technical credibility and teaching pedagogy skills by engaging in technical upskilling opportunities, such as participating in Advent of Code and self-study projects.",
     ],
   },
   // the turtle log marks the switch from higher ed to software
@@ -57,6 +70,7 @@ export const ROLES = [
     years: '2020 – 2022',
     title: 'Associate Director of Student Transitions',
     org: 'Emerson College',
+    logo: emerson,
     url: 'https://www.emerson.edu',
     bird: { name: 'black-capped chickadee', note: "Massachusetts' state bird", call: 'chickadee', symbol: 'chickadee', viewBox: '0 0 64 56', colors: {} },
     stats: [
@@ -80,6 +94,7 @@ export const ROLES = [
     years: '2017 – 2020',
     title: 'Advisor for New Student Programs',
     org: 'Wellesley College',
+    logo: wellesley,
     url: 'https://www.wellesley.edu',
     bird: { name: 'wood duck', note: 'a common sight on New England ponds', call: 'quack', symbol: 'duck', viewBox: '0 0 34 20', wide: true, colors: { '--body': '#9a7a62', '--wing': '#4a5a8a', '--head': '#2f7a54', '--crest': '#2f7a54', '--ring': '#fff', '--beak': '#d0623c' } },
     stats: [
@@ -100,6 +115,7 @@ export const ROLES = [
     years: '2015 – 2017',
     title: 'Assistant Director of Visitor Experience',
     org: 'Emerson College',
+    logo: emerson,
     url: 'https://www.emerson.edu',
     bird: { name: 'mallard', note: "Boston's Make Way for Ducklings bird", call: 'quack', symbol: 'duck', viewBox: '0 0 34 20', wide: true, colors: { '--body': '#b8b0a2', '--wing': '#6a7a9a', '--head': '#2f6e3e', '--ring': '#fff', '--beak': '#e8c33c' } },
     stats: [
@@ -119,6 +135,7 @@ export const ROLES = [
     years: '2015',
     title: 'College Student Affairs Administration, M.Ed.',
     org: 'The University of Georgia',
+    logo: uga,
     url: 'https://www.uga.edu',
     bird: { name: 'brown thrasher', note: "Georgia's state bird", call: 'trill', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#a5542b', '--belly': '#f0e0c0', '--head': '#a5542b', '--wing': '#8a4422', '--tail': '#8a4422' } },
     highlight: 'Earned an M.Ed. while working as a graduate assistant in the UGA LGBT Pride Center.',
@@ -131,6 +148,7 @@ export const ROLES = [
     years: '2013',
     title: 'Computer Science (B.S.) and Theatre (B.A.)',
     org: 'The University of Maryland',
+    logo: umd,
     url: 'https://www.umd.edu',
     bird: { name: 'Baltimore oriole', note: "Maryland's state bird", call: 'thrush', symbol: 'songbird', viewBox: '0 0 30 22', colors: { '--body': '#f08a24', '--belly': '#f6a24a', '--head': '#1f1f1f', '--wing': '#1f1f1f', '--tail': '#1f1f1f' } },
     highlight: 'Dual degrees in Computer Science and Theatre.',

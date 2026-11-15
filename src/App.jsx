@@ -5,9 +5,10 @@ import Header from './components/Header'
 import Home from './components/Home'
 import About from './components/About'
 import Experience from './components/Experience'
-import { CoastToMarsh, MarshToRiver } from './components/Transitions'
-import Letters from './components/Letters'
+import Projects from './components/Projects'
+import { CoastToMarsh, MarshToRiver, RiverToSpring } from './components/Transitions'
 import Footer from './components/Footer'
+import FieldLabel from './components/FieldLabel'
 
 const SECTIONS = ['home', 'about', 'experience', 'projects']
 
@@ -29,18 +30,7 @@ function useLegacyLinks() {
   }, [])
 }
 
-// Placeholder sections while the redesign is built one habitat at a time.
-function ComingSoon({ id, title, fx, instrument }) {
-  return (
-    <section className="page coming-soon gutter" id={id}>
-      <div className="inner page-head">
-        <Letters text={title} as="h1" className="title" fx={fx} instrument={instrument} />
-        <p className="lede">This habitat is next in the build.</p>
-      </div>
-    </section>
-  )
-}
-
+// One continuous walk upstream: the coast, the marsh, the river valley, and the spring where the river begins.
 function App() {
   useLegacyLinks()
   return (
@@ -53,9 +43,11 @@ function App() {
         <About />
         <MarshToRiver />
         <Experience />
-        <ComingSoon id="projects" title="projects" fx="lift" instrument="chime" />
+        <RiverToSpring />
+        <Projects />
       </main>
       <Footer />
+      <FieldLabel />
     </SoundProvider>
   )
 }
