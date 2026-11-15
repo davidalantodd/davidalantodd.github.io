@@ -3,12 +3,11 @@ import Letters from './Letters'
 import { playCall } from '../sound/audio'
 import { clamp, prefersReducedMotion, useScrollScene } from '../lib/motion'
 
-// four short lines the sandpiper reveals as it walks across the sand
+// one sentence, written into the sand a piece at a time as the sandpiper walks
 const LINES = [
-  ['Now', 'building software that helps people'],
-  ['Before', 'coaching 77 apprentices into engineering careers'],
-  ['Before that', 'welcoming thousands of new college students'],
-  ['Off the clock', 'binoculars, seed packets, and a cast recording on repeat'],
+  'I build software that helps people.',
+  'Before that, I coached engineers',
+  'and mentored college students.',
 ]
 
 const WAVES = [
@@ -36,8 +35,8 @@ function Home() {
     const rel = r => ({ x: r.left - wr.left, y: r.top - wr.top })
     const pts = [{ x: 8, y: 34 }]
     lines.forEach(line => {
-      const r = rel(line.querySelector('.kicker').getBoundingClientRect())
-      pts.push({ x: r.x, y: r.y - 38 })
+      const r = rel(line.querySelector('.text').getBoundingClientRect())
+      pts.push({ x: r.x, y: r.y - 40 })
     })
     const ir = inlandRef.current.getBoundingClientRect()
     const ip = rel(ir)
@@ -94,7 +93,8 @@ function Home() {
     if (!p.segs.length || !beachRef.current) return
     const reduce = prefersReducedMotion()
     const r = beachRef.current.getBoundingClientRect()
-    const progress = reduce ? 1 : clamp((window.innerHeight * 0.85 - r.top) / (r.height * 0.8), 0, 1)
+    // the walk starts only once the beach has scrolled well into view, so the first screen stays clean
+    const progress = reduce ? 1 : clamp((window.innerHeight * 0.5 - r.top) / (r.height * 0.7), 0, 1)
     const L = progress * p.total
     const pt = pointAt(L)
     const hop = reduce ? 0 : Math.abs(Math.sin(L / 9)) * 3
@@ -166,9 +166,8 @@ function Home() {
             </svg>
           </div>
           <div className="lines">
-            {LINES.map(([kicker, text], i) => (
-              <p className="line" style={{ '--i': i }} key={kicker}>
-                <span className="kicker">{kicker}</span>
+            {LINES.map((text, i) => (
+              <p className="line" style={{ '--i': i }} key={text}>
                 <span className="text">{text}</span>
               </p>
             ))}

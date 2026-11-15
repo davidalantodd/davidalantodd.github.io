@@ -3,6 +3,8 @@ import { SoundProvider } from './sound/SoundContext'
 import ArtDefs from './components/art/ArtDefs'
 import Header from './components/Header'
 import Home from './components/Home'
+import About from './components/About'
+import { CoastToMarsh } from './components/Transitions'
 import Letters from './components/Letters'
 import Footer from './components/Footer'
 
@@ -46,7 +48,8 @@ function App() {
       <Header />
       <main>
         <Home />
-        <ComingSoon id="about" title="about me" fx="sway" instrument="reed" />
+        <CoastToMarsh />
+        <About />
         <ComingSoon id="experience" title="experience" fx="plop" instrument="pluck" />
         <ComingSoon id="projects" title="projects" fx="lift" instrument="chime" />
       </main>
