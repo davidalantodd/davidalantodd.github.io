@@ -89,7 +89,20 @@ function Home() {
         prints.push({ el: f, t: sg.start + d })
       }
     })
-    path.current = { pts, segs, total, prints, stopT: lines.map((_, i) => segs[i].start + segs[i].len), last: 99 }
+    cancelAnimationFrame(path.current.raf)
+    path.current = {
+      pts,
+      segs,
+      total,
+      prints,
+      lines: [...walkRef.current.querySelectorAll('.line')],
+      stopT: lines.map((_, i) => segs[i].start + segs[i].len),
+      lit: 0,
+      reached: null,
+      shown: null,
+      raf: 0,
+      last: 99,
+    }
     update()
     path.current.last = -1
   }
@@ -106,6 +119,40 @@ function Home() {
     return { x: end.x, y: end.y, dir: 1 }
   }
 
+  // Draw the walk at distance L along the path. Only the footprints and lines that actually
+  // change get touched, so a fast scroll doesn't mean redoing every one of them each frame.
+  const draw = L => {
+    const p = path.current
+    const pt = pointAt(L)
+    const hop = prefersReducedMotion() ? 0 : Math.abs(Math.sin(L / 9)) * 3
+    piperRef.current.style.transform = `translate(${pt.x - 23}px, ${pt.y - hop}px) scaleX(${pt.dir})`
+    // prints are in walking order, so just move the "lit up to here" mark forward or back
+    while (p.lit < p.prints.length && p.prints[p.lit].t <= L) p.prints[p.lit++].el.classList.add('on')
+    while (p.lit > 0 && p.prints[p.lit - 1].t > L) p.prints[--p.lit].el.classList.remove('on')
+    let reached = -1
+    p.stopT.forEach((t, i) => {
+      if (L >= t - 2) reached = i
+    })
+    if (reached !== p.reached) {
+      p.lines.forEach((line, i) => line.classList.toggle('on', i <= reached))
+      p.reached = reached
+    }
+    if (reached > p.last) playCall('peep')
+    // once the sandpiper finishes writing, the header may point out that the birds have sound
+    if (reached === p.stopT.length - 1 && p.last < reached) window.dispatchEvent(new Event('sound:hint'))
+    p.last = reached
+  }
+
+  // The sandpiper runs to catch up with the scroll instead of snapping to it, so a fast flick
+  // looks like a quick dash rather than a jump.
+  const step = () => {
+    const p = path.current
+    const gap = p.target - p.shown
+    p.shown = Math.abs(gap) < 0.5 ? p.target : p.shown + gap * 0.2
+    draw(p.shown)
+    p.raf = p.shown === p.target ? 0 : requestAnimationFrame(step)
+  }
+
   const update = () => {
     const p = path.current
     if (!p.segs.length || !beachRef.current) return
@@ -113,21 +160,14 @@ function Home() {
     const r = beachRef.current.getBoundingClientRect()
     // the walk starts only once the beach has scrolled well into view, so the first screen stays clean
     const progress = reduce ? 1 : clamp((window.innerHeight * 0.55 - r.top) / (r.height * 0.95), 0, 1)
-    const L = progress * p.total
-    const pt = pointAt(L)
-    const hop = reduce ? 0 : Math.abs(Math.sin(L / 9)) * 3
-    piperRef.current.style.transform = `translate(${pt.x - 23}px, ${pt.y - hop}px) scaleX(${pt.dir})`
-    p.prints.forEach(f => f.el.classList.toggle('on', f.t <= L))
-    let reached = -1
-    walkRef.current.querySelectorAll('.line').forEach((line, i) => {
-      const on = L >= p.stopT[i] - 2
-      line.classList.toggle('on', on)
-      if (on) reached = i
-    })
-    if (reached > p.last) playCall('peep')
-    // once the sandpiper finishes writing, the header may point out that the birds have sound
-    if (reached === p.stopT.length - 1 && p.last < reached) window.dispatchEvent(new Event('sound:hint'))
-    p.last = reached
+    p.target = progress * p.total
+    // on first draw, or with reduced motion, go straight there
+    if (p.shown === null || reduce) {
+      p.shown = p.target
+      draw(p.shown)
+      return
+    }
+    if (!p.raf) p.raf = requestAnimationFrame(step)
   }
 
   useScrollScene(layout, update)

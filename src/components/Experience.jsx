@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Letters from './Letters'
 import { ROLES, LIFE_LIST } from '../data/experience'
 import { playCall } from '../sound/audio'
@@ -18,7 +18,44 @@ function SpottedBird({ bird }) {
   )
 }
 
+// cards show the first two bullets; the rest open with a toggle so the trail stays easy to walk
+const SHOWN = 2
+
 function RoleCard({ role, side }) {
+  const [open, setOpen] = useState(false)
+  const extra = role.notes.length - SHOWN
+  const toggled = useRef(false)
+  const toggle = () => {
+    toggled.current = true
+    setOpen(o => !o)
+  }
+  // the river and trail are drawn around the cards, so redraw them once the card has resized
+  useEffect(() => {
+    if (toggled.current) window.dispatchEvent(new Event('scenes:relayout'))
+  }, [open])
+
+  // The extra bullets stay on the page, just collapsed with hidden="until-found". That way a recruiter's
+  // Ctrl-F still finds them: the browser fires "beforematch" and we open the card to show the match.
+  // (Chrome, Edge and Firefox support this; Safari treats it as plain hidden.)
+  const moreRef = useRef(null)
+  useEffect(() => {
+    const el = moreRef.current
+    if (!el) return
+    if (open) el.removeAttribute('hidden')
+    else el.setAttribute('hidden', 'until-found')
+  }, [open])
+  useEffect(() => {
+    const el = moreRef.current
+    if (!el) return
+    const onMatch = () => {
+      toggled.current = true
+      setOpen(true)
+    }
+    el.addEventListener('beforematch', onMatch)
+    return () => el.removeEventListener('beforematch', onMatch)
+  }, [])
+
+  const listId = `notes-${role.org}-${role.years}`.replace(/[^a-z0-9]+/gi, '-')
   return (
     <article className={`card ${side}`} data-call={role.bird.call}>
       <SpottedBird bird={role.bird} />
@@ -45,10 +82,25 @@ function RoleCard({ role, side }) {
         </div>
       )}
       <ul className="notes-list">
-        {role.notes.map(note => (
+        {role.notes.slice(0, SHOWN).map(note => (
           <li key={note}>{note}</li>
         ))}
       </ul>
+      {extra > 0 && (
+        <div className="notes-more" id={listId} ref={moreRef}>
+          <ul className="notes-list">
+            {role.notes.slice(SHOWN).map(note => (
+              <li key={note}>{note}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {extra > 0 && (
+        <button className="more-btn mono" type="button" aria-expanded={open} aria-controls={listId} onClick={toggle}>
+          {open ? 'show less' : `show ${extra} more`}
+          <span aria-hidden="true">{open ? ' ↑' : ' ↓'}</span>
+        </button>
+      )}
     </article>
   )
 }
