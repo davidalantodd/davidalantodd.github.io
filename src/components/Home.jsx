@@ -125,6 +125,8 @@ function Home() {
       if (on) reached = i
     })
     if (reached > p.last) playCall('peep')
+    // once the sandpiper finishes writing, the header may point out that the birds have sound
+    if (reached === p.stopT.length - 1 && p.last < reached) window.dispatchEvent(new Event('sound:hint'))
     p.last = reached
   }
 

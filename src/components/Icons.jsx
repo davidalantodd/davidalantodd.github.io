@@ -34,3 +34,21 @@ export function LaunchIcon() {
     </svg>
   )
 }
+
+// sun and moon for the light/dark toggle, in the same line style
+export function SunIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
+      <circle cx="12" cy="12" r="4.2" />
+      <path d="M12 2.8 V5 M12 19 V21.2 M2.8 12 H5 M19 12 H21.2 M5.5 5.5 L7 7 M17 17 L18.5 18.5 M5.5 18.5 L7 17 M17 7 L18.5 5.5" />
+    </svg>
+  )
+}
+
+export function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
+      <path d="M19.5 14.6 A8 8 0 1 1 9.4 4.5 A6.4 6.4 0 0 0 19.5 14.6 Z" />
+    </svg>
+  )
+}
