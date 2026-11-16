@@ -29,6 +29,8 @@ export function useScrollScene(onLayout, onScroll) {
   useEffect(() => {
     let ticking = false
     let resizeTimer = 0
+    let lastW = window.innerWidth
+    let lastH = window.innerHeight
     const update = () => scrollRef.current && scrollRef.current()
     const layout = () => {
       if (layoutRef.current) layoutRef.current()
@@ -43,6 +45,13 @@ export function useScrollScene(onLayout, onScroll) {
       })
     }
     const onResize = () => {
+      // phones fire resize whenever the toolbar slides in or out while scrolling;
+      // the scenes use stable heights, so skip those and only redraw for real size changes
+      const w = window.innerWidth
+      const h = window.innerHeight
+      if (w === lastW && Math.abs(h - lastH) < 160) return
+      lastW = w
+      lastH = h
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(layout, 120)
     }

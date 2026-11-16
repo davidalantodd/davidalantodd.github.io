@@ -294,14 +294,14 @@ function About() {
       height: `${eh}px`,
     })
 
-    state.current = { VW, travel, stopX, active: -2 }
+    const hdr = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr')) || 60
+    state.current = { VW, travel, stopX, hdr, active: -2 }
   }
 
   const update = () => {
     const walk = walkRef.current
     if (!walk) return
-    const { VW, travel, stopX } = state.current
-    const hdr = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr')) || 60
+    const { VW, travel, stopX, hdr } = state.current
     const x = clamp((hdr - walk.getBoundingClientRect().top) / travel, 0, 1) * travel
     if (stageRef.current.scrollLeft) stageRef.current.scrollLeft = 0
     farRef.current.style.transform = `translate3d(${-x * FAR}px,0,0)`
@@ -330,8 +330,7 @@ function About() {
   // keyboard users: tabbing into a sign scrolls the walk so that sign is in view
   const focusStop = i => {
     const walk = walkRef.current
-    const { VW, travel, stopX } = state.current
-    const hdr = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr')) || 60
+    const { VW, travel, stopX, hdr } = state.current
     const top = walk.getBoundingClientRect().top + window.scrollY - hdr
     const x = clamp(stopX[i] - VW / 2, 0, travel)
     // the browser scrolls to the focused link after this event, so move the walk just after it does
