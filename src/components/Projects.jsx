@@ -118,12 +118,21 @@ function Projects() {
   const listRef = useRef(null)
   const state = useRef({ active: -2, drummed: false, cur: [0, 0, 600, 640], target: [0, 0, 600, 640], raf: 0 })
 
-  const viewFor = i => {
-    if (!FOCUS[i]) return [0, 0, 600, 640]
+  // On desktop the scene is tall, so the whole pond fits and we just zoom toward each animal.
+  // On phones the scene is a short, wide strip, so the view is cut to that shape and centered
+  // on the pond (or the animal), which keeps the drawing large instead of shrinking it to fit.
+  const viewFor = (i, aspect) => {
+    const focus = FOCUS[i]
+    // before any project is in view the whole pond shows, so it's clear what the scene is
+    if (!focus) return [0, 0, 600, 640]
     const w = 600 / ZOOM
-    const h = 640 / ZOOM
-    const [fx, fy] = FOCUS[i]
-    return [clamp(fx - w / 2, 0, 600 - w), clamp(fy - h / 2, 0, 640 - h), w, h]
+    if (aspect <= 600 / 640) {
+      const h = 640 / ZOOM
+      return [clamp(focus[0] - w / 2, 0, 600 - w), clamp(focus[1] - h / 2, 0, 640 - h), w, h]
+    }
+    const h = Math.min(w / aspect, 640)
+    const [cx, cy] = focus
+    return [clamp(cx - w / 2, 0, 600 - w), clamp(cy - h / 2, 0, 640 - h), w, h]
   }
 
   const glide = () => {
@@ -149,6 +158,68 @@ function Projects() {
     if (!s.raf) s.raf = requestAnimationFrame(glide)
   }
 
+  // light up one animal (or none) and let it call
+  const setActive = i => {
+    const s = state.current
+    if (i === s.active) return false
+    const svg = svgRef.current
+    svg.classList.toggle('focus-on', i >= 0)
+    svg.querySelectorAll('.animal-g').forEach((g, k) => g.classList.toggle('on', k === i))
+    if (s.active !== -2 && i >= 0) playCall(PROJECTS[i].animal)
+    s.active = i
+    return true
+  }
+
+  // phones: the pond starts at full size and the first card pushes it up into a short strip as you scroll,
+  // so the shrink follows your thumb instead of jumping. The view zooms toward the chickadee at the same pace.
+  const sizeForPhone = svg => {
+    const s = state.current
+    const wrap = svg.parentNode
+    const card = listRef.current.querySelector('.proj')
+    const h = clamp(card.getBoundingClientRect().top - 12 - wrap.getBoundingClientRect().top, s.strip, s.full)
+    if (h !== s.h) {
+      wrap.style.height = `${h}px`
+      s.h = h
+    }
+    const t = (s.full - h) / Math.max(s.full - s.strip, 1)
+    if (t >= 1) return false
+    setActive(t >= 0.5 ? 0 : -1)
+    const z = 1 + (ZOOM - 1) * t
+    const [fx, fy] = FOCUS[1]
+    const cx = 300 + (fx - 300) * t
+    const cy = 320 + (fy - 320) * t
+    const w = 600 / z
+    const vh = Math.min(w / (wrap.clientWidth / h), 640)
+    const view = [clamp(cx - w / 2, 0, 600 - w), clamp(cy - vh / 2, 0, 640 - vh), w, vh]
+    cancelAnimationFrame(s.raf)
+    s.raf = 0
+    s.cur = view
+    s.target = view
+    svg.setAttribute('viewBox', view.map(n => n.toFixed(1)).join(' '))
+    return true
+  }
+
+  const layout = () => {
+    const s = state.current
+    s.active = -2
+    s.h = 0
+    s.narrow = window.matchMedia('(max-width: 860px)').matches
+    const wrap = svgRef.current.parentNode
+    const col = wrap.parentNode
+    const list = listRef.current
+    if (!s.narrow) {
+      wrap.style.height = ''
+      col.style.height = ''
+      list.style.paddingTop = ''
+      return
+    }
+    // sizes are set once here (not from the changing phone toolbar), so they stay steady while scrolling
+    s.strip = Math.max(Math.round(window.innerHeight * 0.25), 150)
+    s.full = Math.max(Math.min(Math.round(wrap.clientWidth * (640 / 600)), Math.round(window.innerHeight * 0.52)), s.strip)
+    col.style.height = `calc(${s.strip}px + 0.7rem)`
+    list.style.paddingTop = `${s.full - s.strip}px`
+  }
+
   const update = () => {
     const svg = svgRef.current
     if (!svg) return
@@ -165,21 +236,17 @@ function Projects() {
     }
     if (box.top > window.innerHeight) s.drummed = false
 
+    if (s.narrow && sizeForPhone(svg)) return
+
     let i = -1
     listRef.current.querySelectorAll('.proj').forEach((card, k) => {
       if (card.getBoundingClientRect().top < window.innerHeight * 0.55) i = k
     })
-    if (i === s.active) return
-    svg.classList.toggle('focus-on', i >= 0)
-    svg.querySelectorAll('.animal-g').forEach((g, k) => g.classList.toggle('on', k === i))
-    setView(viewFor(i + 1))
-    if (s.active !== -2 && i >= 0) playCall(PROJECTS[i].animal)
-    s.active = i
+    if (!setActive(i)) return
+    setView(viewFor(i + 1, box.width / Math.max(box.height, 1)))
   }
 
-  useScrollScene(() => {
-    state.current.active = -2
-  }, update)
+  useScrollScene(layout, update)
 
   const onSceneClick = e => {
     const target = e.target.closest('[data-call]')
