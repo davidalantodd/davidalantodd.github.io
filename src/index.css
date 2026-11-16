@@ -54,42 +54,40 @@
   --hdr: 60px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0c131b;
-    --fg: #e9eef3;
-    --muted: #9aa7b4;
-    --line: #213041;
-    --surface: #142130;
-    --card: #141b24;
-    --blue: #5aaaf0;
-    --blue-deep: #8fc4f5;
-    --orange: #f9a877;
-    --orange-deep: #f08a4e;
-    --green-deep: #3fd2b3;
-    --sea-1: #1d4d7a;
-    --sea-2: #1a5f9e;
-    --sea-3: #123e68;
-    --sun: #efe4c0;
-    --sand: #241f19;
-    --sand-wet: #1c2026;
-    --sand-deep: #3a3229;
-    --dawn-1: #3a2c2c;
-    --dawn-2: #142334;
-    --reed: #4f7a3a;
-    --reed-dark: #3b5e2b;
-    --cattail: #6a4428;
-    --wood: #7a5a40;
-    --wood-dark: #5e432e;
-    --forest: #2a5a40;
-    --pine: #1f4632;
-    --leaf: #357a52;
-    --hill: #24503a;
-    --trunk: #4a3626;
-    --rock: #5b554e;
-    --rock-dark: #48433d;
+:root[data-theme='dark'] {
+  --bg: #0c131b;
+  --fg: #e9eef3;
+  --muted: #9aa7b4;
+  --line: #213041;
+  --surface: #142130;
+  --card: #141b24;
+  --blue: #5aaaf0;
+  --blue-deep: #8fc4f5;
+  --orange: #f9a877;
+  --orange-deep: #f08a4e;
+  --green-deep: #3fd2b3;
+  --sea-1: #1d4d7a;
+  --sea-2: #1a5f9e;
+  --sea-3: #123e68;
+  --sun: #efe4c0;
+  --sand: #262830;
+  --sand-wet: #1d2129;
+  --sand-deep: #3c3e47;
+  --dawn-1: #2c2a42;
+  --dawn-2: #142334;
+  --reed: #4f7a3a;
+  --reed-dark: #3b5e2b;
+  --cattail: #6a4428;
+  --wood: #7a5a40;
+  --wood-dark: #5e432e;
+  --forest: #2a5a40;
+  --pine: #1f4632;
+  --leaf: #357a52;
+  --hill: #24503a;
+  --trunk: #4a3626;
+  --rock: #5b554e;
+  --rock-dark: #48433d;
     color-scheme: dark;
-  }
 }
 
 /* ============================================================
@@ -237,6 +235,29 @@ img {
 .site-header a.active::after,
 .site-header a:focus-visible::after {
   clip-path: inset(0 0 0 0);
+}
+
+.theme-btn {
+  width: 30px;
+  height: 30px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.theme-btn:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.theme-btn .icon {
+  width: 16px;
+  height: 16px;
 }
 
 .sound-btn {

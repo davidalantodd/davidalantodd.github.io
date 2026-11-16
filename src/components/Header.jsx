@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSound } from '../sound/SoundContext'
+import { MoonIcon, SunIcon } from './Icons'
 
 const SECTIONS = ['home', 'about', 'experience', 'projects']
 
@@ -7,6 +8,25 @@ function Header() {
   const { soundOn, toggleSound } = useSound()
   const [active, setActive] = useState('home')
   const headerRef = useRef(null)
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || 'light')
+
+  useEffect(() => {
+    const sync = () => setTheme(document.documentElement.dataset.theme)
+    window.addEventListener('themechange', sync)
+    return () => window.removeEventListener('themechange', sync)
+  }, [])
+
+  // the theme was set before first paint (in index.html); this flips it and remembers the choice
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    document.documentElement.dataset.theme = next
+    try {
+      window.localStorage.setItem('theme', next)
+    } catch {
+      // storage can be unavailable, for example in a private window
+    }
+    setTheme(next)
+  }
 
   // keep --hdr in sync with the header's height, so sticky scenes sit just below it
   useEffect(() => {
@@ -55,6 +75,16 @@ function Header() {
           {link('about')}
           {link('experience')}
           {link('projects')}
+          <button
+            className="theme-btn"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            data-name={theme === 'dark' ? 'light mode' : 'dark mode'}
+            data-label-pos="below"
+          >
+            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+          </button>
           <button className="sound-btn" type="button" aria-pressed={soundOn} onClick={toggleSound}>
             <svg viewBox="0 0 18 18" aria-hidden="true">
               <rect x="2" y="3" width="3" height="12" rx="1.5" />
