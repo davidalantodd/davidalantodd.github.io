@@ -6,7 +6,7 @@ const STORAGE_KEY = 'sound-on'
 
 function readSaved() {
   try {
-    return window.localStorage.getItem(STORAGE_KEY) === '1'
+    return window.sessionStorage.getItem(STORAGE_KEY) === '1'
   } catch {
     return false
   }
@@ -15,7 +15,8 @@ function readSaved() {
 export function SoundProvider({ children }) {
   const [soundOn, setSoundOn] = useState(readSaved)
 
-  // if sound was left on last visit, get ready to play after the first click or key press
+  // sound is remembered only for this visit (sessionStorage), so a new visit always starts quiet;
+  // if it was on before a reload, get ready to play after the first click or key press
   useEffect(() => {
     if (soundOn) {
       setSoundEnabled(true)
@@ -29,7 +30,7 @@ export function SoundProvider({ children }) {
     setSoundOn(prev => {
       const next = setSoundEnabled(!prev)
       try {
-        window.localStorage.setItem(STORAGE_KEY, next ? '1' : '0')
+        window.sessionStorage.setItem(STORAGE_KEY, next ? '1' : '0')
       } catch {
         // storage can be unavailable, for example in a private window
       }
