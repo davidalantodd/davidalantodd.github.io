@@ -62,9 +62,15 @@ function Header() {
   // the theme was set before first paint (in index.html); this flips it and remembers the choice
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
+    const system = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
     document.documentElement.dataset.theme = next;
     try {
-      window.localStorage.setItem("theme", next);
+      // picking the theme the system already uses means "follow the system" again,
+      // so there's no hidden third "auto" state; any other pick is saved for next time
+      if (next === system) window.localStorage.removeItem("theme");
+      else window.localStorage.setItem("theme", next);
     } catch {
       // storage can be unavailable, for example in a private window
     }
@@ -127,18 +133,6 @@ function Header() {
           {link("about")}
           {link("experience")}
           {link("projects")}
-          <button
-            className="theme-btn"
-            type="button"
-            onClick={toggleTheme}
-            aria-label={
-              theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-            }
-            data-name={theme === "dark" ? "light mode" : "dark mode"}
-            data-label-pos="below"
-          >
-            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-          </button>
           <span className="sound-wrap">
             <button
               className={hint ? "sound-btn nudge" : "sound-btn"}
@@ -165,6 +159,18 @@ function Header() {
               {hint ? "the birds sing ♪" : ""}
             </span>
           </span>
+          <button
+            className="theme-btn"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
+            data-name={theme === "dark" ? "light mode" : "dark mode"}
+            data-label-pos="below"
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
         </nav>
       </div>
     </header>
