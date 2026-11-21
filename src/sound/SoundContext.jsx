@@ -13,17 +13,17 @@ function readSaved() {
 }
 
 export function SoundProvider({ children }) {
-  const [soundOn, setSoundOn] = useState(readSaved)
+  // starts off on the server-rendered page; the saved setting is read once the page is running in a browser
+  const [soundOn, setSoundOn] = useState(false)
 
   // sound is remembered only for this visit (sessionStorage), so a new visit always starts quiet;
   // if it was on before a reload, get ready to play after the first click or key press
   useEffect(() => {
-    if (soundOn) {
+    if (readSaved()) {
+      setSoundOn(true)
       setSoundEnabled(true)
       resumeOnGesture()
     }
-    // only on first load
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const toggleSound = useCallback(() => {
