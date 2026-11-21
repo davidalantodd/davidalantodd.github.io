@@ -344,7 +344,7 @@ function About() {
     <section className="page marsh" id="about">
       <div className="gutter">
         <div className="inner page-head">
-          <Letters text="about me" className="title" fx="sway" instrument="reed" />
+          <Letters text="about me" as="h2" className="title" fx="sway" instrument="reed" />
         </div>
       </div>
 

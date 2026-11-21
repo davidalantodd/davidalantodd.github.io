@@ -257,7 +257,7 @@ function Projects() {
     <section className="page spring" id="projects">
       <div className="gutter">
         <div className="inner page-head">
-          <Letters text="projects" className="title" fx="lift" instrument="chime" />
+          <Letters text="projects" as="h2" className="title" fx="lift" instrument="chime" />
         </div>
       </div>
       <div className="gutter">

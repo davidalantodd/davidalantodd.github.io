@@ -299,7 +299,7 @@ function Experience() {
         <div className="inner trail-wrap" ref={wrapRef}>
           <svg className="trail-svg" ref={svgRef} aria-hidden="true" />
           <div className="page-head on-trail">
-            <Letters text="experience" className="title" fx="plop" instrument="pluck" />
+            <Letters text="experience" as="h2" className="title" fx="plop" instrument="pluck" />
           </div>
           <div className="trail-list" ref={listRef}>
             {ROLES.map((role, i) => (role.log ? <TurtleLog key="log" logRef={logRef} /> : <RoleCard key={i} role={role} side={side++ % 2 ? 'right' : 'left'} />))}

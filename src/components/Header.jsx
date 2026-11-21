@@ -49,9 +49,12 @@ function Header() {
     };
   }, []);
 
-  const [theme, setTheme] = useState(
-    () => document.documentElement.dataset.theme || "light",
-  );
+  // the page is first rendered without a browser, so start from light and pick up the real theme
+  // (already set on <html> by the script in index.html) as soon as the page runs
+  const [theme, setTheme] = useState("light");
+  useEffect(() => {
+    setTheme(document.documentElement.dataset.theme || "light");
+  }, []);
 
   useEffect(() => {
     const sync = () => setTheme(document.documentElement.dataset.theme);
